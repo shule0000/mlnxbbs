@@ -228,8 +228,22 @@
           <a href="http://weibo.com/u/1950616540" target="_blank"
             style="color: #c19b85">微博关注</a>
         </address>
-
-
+      </div>
+      <div class="center visible-xs">
+        <address>
+          <strong style="font-size: 20px;">宁波市美灵思医疗科技有限公司</strong><br>
+          <c:forEach items="${contact }" var="ct">
+        地址：<a href="http://j.map.baidu.com/9FV9x" target="_blank">${ct.ctAdress
+              }</a>
+            <br>
+        电话：<a href="tel:${ct.ctPhone }">${ct.ctPhone }</a>
+            <br> 传真：<a href="tel:${ct.ctFax }">${ct.ctFax }</a>
+            <br> 邮箱：<a href="${ct.ctEmail }">${ct.ctEmail }</a>
+            <br>
+          </c:forEach>
+          <a href="http://weibo.com/u/1950616540" target="_blank"
+            style="color: #c19b85">微博关注</a>
+        </address>
       </div>
       <div class="col-xs-12">
         <div class="center">
