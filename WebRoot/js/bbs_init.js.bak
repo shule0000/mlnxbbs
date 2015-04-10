@@ -1,0 +1,6 @@
+$(function(){
+      // 初始化轮播
+      $(".start-slide").click(function(){
+         $("#bbs_Carousel").carousel('cycle');
+      });
+});
