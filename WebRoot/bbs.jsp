@@ -199,7 +199,7 @@
     <div class="row">
       <div class="col-xs-4 col-xs-offset-2 col-sm-3">
         <c:forEach items="${qrcode1 }" var="qr1">
-          <img src="/mlnxMS/upload/${qr1.qrImg }" class="img-responsive"
+          <img src="/docs/upload/${qr1.qrImg }" class="img-responsive"
             alt="nbmlnx_service" width="90px" align="bottom">
           <p style="font-size:11px;margin: 12px;">${qr1.qrName }</p>
         </c:forEach>
@@ -207,7 +207,7 @@
 
       <div class="col-xs-4 col-sm-3">
         <c:forEach items="${qrcode2 }" var="qr2">
-          <img src="/mlnxMS/upload/${qr2.qrImg }" class="img-responsive"
+          <img src="/docs/upload/${qr2.qrImg }" class="img-responsive"
             alt="nbmlnx_service" width="90px" align="bottom">
           <p style="font-size:11px;margin: 12px;">${qr2.qrName }</p>
         </c:forEach>
