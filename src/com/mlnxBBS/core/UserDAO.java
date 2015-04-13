@@ -26,7 +26,9 @@ public class UserDAO extends BaseHibernateDAO {
 	public static final String UPASS = "upass";
 	public static final String UAGNAME = "uagname";
 	public static final String UICON = "uicon";
-	public static final String UDAYS = "udays";
+	public static final String HISTORY_DAYS = "historyDays";
+	public static final String CURRENT_DAYS = "currentDays";
+	public static final String RUNNING_DAYS = "runningDays";
 	public static final String USCORE = "uscore";
 	public static final String USTATUS = "ustatus";
 
@@ -110,8 +112,16 @@ public class UserDAO extends BaseHibernateDAO {
 		return findByProperty(UICON, uicon);
 	}
 
-	public List<User> findByUdays(Object udays) {
-		return findByProperty(UDAYS, udays);
+	public List<User> findByHistoryDays(Object historyDays) {
+		return findByProperty(HISTORY_DAYS, historyDays);
+	}
+
+	public List<User> findByCurrentDays(Object currentDays) {
+		return findByProperty(CURRENT_DAYS, currentDays);
+	}
+
+	public List<User> findByRunningDays(Object runningDays) {
+		return findByProperty(RUNNING_DAYS, runningDays);
 	}
 
 	public List<User> findByUscore(Object uscore) {

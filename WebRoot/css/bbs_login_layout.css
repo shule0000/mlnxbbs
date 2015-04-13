@@ -1,0 +1,48 @@
+body {
+  font: 12px/1.5 Tahoma, "Microsoft Yahei", "Simsun";
+  background-color: #fff;
+}
+
+.navbar-mlnx {
+  margin-top: 35px;
+  background-color: #fff;
+  border-color: #fff;
+}
+#mainform {
+  width: 343px;
+  margin: 100px auto;
+  overflow: hidden;
+}
+
+#mainform>div>input {
+  width: 100%;
+  margin-bottom: 20px;
+  height: 50px;
+  font-size: 16px;
+}
+
+.btn {
+  width: 100%;
+  color: white;
+  background-color: #0bb;
+}
+
+.forget {
+  margin-bottom: 30px;
+  height: 20px;
+  line-height: 20px;
+}
+
+.bg-white {
+  background-color: #fff;
+}
+
+.footer {
+  margin-top: 20px;
+  padding: 15px;
+  border-top: 1px solid #E5E6E7;
+}
+
+.center{
+  text-align:center;
+}

@@ -26,8 +26,11 @@
   <nav class="navbar navbar-default" style="height: 70px;"
     role="navigation">
   <div class="navbar-header left">
-    <a class="navbar-brand" href="#"><img src="images/logo.png"
-      style="height: 50px; margin-top: -7.5px;"></a>
+    <c:forEach items="${headers }" var="hea">
+      <a class="navbar-brand" href="#"><img
+        src="/docs/upload/${hea.logoImg }"
+        style="height: 50px; margin-top: -7.5px;"></a>
+    </c:forEach>
   </div>
   <div>
     <ul class="nav navbar-nav head-size " style="font-size: 20px;">
@@ -63,14 +66,26 @@
         </ol>
         <!-- 轮播（Carousel）项目 -->
         <div class="carousel-inner">
-          <div class="item active">
-            <img src="images/mlsyl1.jpg" alt="First slide"
-              style="height: 300px; width: 100%;">
-          </div>
-          <div class="item">
-            <img src="images/mlsyl2.jpg" alt="Second slide"
-              style="height: 300px; width: 100%;">
-          </div>
+          <c:forEach items="${banners }" var="ban" varStatus="i">
+            <c:if test="${i.index==0 }">
+              <div class="item active">
+                <img src="/docs/upload/${ban.banImg }" alt="First slide"
+                  style="height: 300px; width: 100%;">
+              </div>
+            </c:if>
+            <c:if test="${i.index==1 }">
+              <div class="item">
+                <img src="/docs/upload/${ban.banImg }"
+                  alt="Second slide" style="height: 300px; width: 100%;">
+              </div>
+            </c:if>
+            <c:if test="${i.index==2 }">
+              <div class="item">
+                <img src="/docs/upload/${ban.banImg }" alt="Third slide"
+                  style="height: 300px; width: 100%;">
+              </div>
+            </c:if>
+          </c:forEach>
         </div>
       </div>
 
@@ -184,7 +199,7 @@
       <div class="col-sm-3">
         <div class="bg-white" style="height: 600px; margin-top: 15px;">
           最新活动:<br />
-          <c:forEach items="${topEvents }" var="tpe" end="4">
+          <c:forEach items="${topEvents }" var="tpe">
             <div style="margin-top: 20px">
               《${tpe.etitle }》 <br /> <a href="">${tpe.econtent.toString()
                 .replaceAll("<.*?>", "").substring(0, 20) }……</a>

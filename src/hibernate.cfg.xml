@@ -29,6 +29,8 @@
     <mapping class="com.mlnxBBS.core.Copyright" />
     <mapping class="com.mlnxBBS.core.Contact" />
     <mapping class="com.mlnxBBS.core.Qrcode" />
+    <mapping class="com.mlnxBBS.core.Header" />
+    <mapping class="com.mlnxBBS.core.Banner" />
   </session-factory>
 
 </hibernate-configuration>

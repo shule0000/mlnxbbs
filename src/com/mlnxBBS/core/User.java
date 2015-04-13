@@ -26,7 +26,9 @@ public class User implements java.io.Serializable {
 	private String upass;
 	private String uagname;
 	private String uicon;
-	private Integer udays;
+	private Integer historyDays;
+	private Integer currentDays;
+	private Integer runningDays;
 	private Integer uscore;
 	private Integer ustatus;
 	private Set<Response> responsesForReplyerId = new HashSet<Response>(0);
@@ -40,16 +42,34 @@ public class User implements java.io.Serializable {
 	public User() {
 	}
 
+	/** minimal constructor */
+	public User(String uname, String upass, String uagname, String uicon,
+			Integer historyDays, Integer currentDays, Integer runningDays,
+			Integer uscore, Integer ustatus) {
+		this.uname = uname;
+		this.upass = upass;
+		this.uagname = uagname;
+		this.uicon = uicon;
+		this.historyDays = historyDays;
+		this.currentDays = currentDays;
+		this.runningDays = runningDays;
+		this.uscore = uscore;
+		this.ustatus = ustatus;
+	}
+
 	/** full constructor */
 	public User(String uname, String upass, String uagname, String uicon,
-			Integer udays, Integer uscore, Integer ustatus,
+			Integer historyDays, Integer currentDays, Integer runningDays,
+			Integer uscore, Integer ustatus,
 			Set<Response> responsesForReplyerId, Set<Praise> praises,
 			Set<Response> responsesForToUid, Set<Post> posts) {
 		this.uname = uname;
 		this.upass = upass;
 		this.uagname = uagname;
 		this.uicon = uicon;
-		this.udays = udays;
+		this.historyDays = historyDays;
+		this.currentDays = currentDays;
+		this.runningDays = runningDays;
 		this.uscore = uscore;
 		this.ustatus = ustatus;
 		this.responsesForReplyerId = responsesForReplyerId;
@@ -70,7 +90,7 @@ public class User implements java.io.Serializable {
 		this.uid = uid;
 	}
 
-	@Column(name = "uName", length = 50)
+	@Column(name = "uName", nullable = false, length = 50)
 	public String getUname() {
 		return this.uname;
 	}
@@ -79,7 +99,7 @@ public class User implements java.io.Serializable {
 		this.uname = uname;
 	}
 
-	@Column(name = "uPass", length = 50)
+	@Column(name = "uPass", nullable = false, length = 50)
 	public String getUpass() {
 		return this.upass;
 	}
@@ -88,7 +108,7 @@ public class User implements java.io.Serializable {
 		this.upass = upass;
 	}
 
-	@Column(name = "uAgname", length = 50)
+	@Column(name = "uAgname", nullable = false, length = 50)
 	public String getUagname() {
 		return this.uagname;
 	}
@@ -97,7 +117,7 @@ public class User implements java.io.Serializable {
 		this.uagname = uagname;
 	}
 
-	@Column(name = "uIcon", length = 50)
+	@Column(name = "uIcon", nullable = false, length = 50)
 	public String getUicon() {
 		return this.uicon;
 	}
@@ -106,16 +126,34 @@ public class User implements java.io.Serializable {
 		this.uicon = uicon;
 	}
 
-	@Column(name = "uDays")
-	public Integer getUdays() {
-		return this.udays;
+	@Column(name = "historyDays", nullable = false)
+	public Integer getHistoryDays() {
+		return this.historyDays;
 	}
 
-	public void setUdays(Integer udays) {
-		this.udays = udays;
+	public void setHistoryDays(Integer historyDays) {
+		this.historyDays = historyDays;
 	}
 
-	@Column(name = "uScore")
+	@Column(name = "currentDays", nullable = false)
+	public Integer getCurrentDays() {
+		return this.currentDays;
+	}
+
+	public void setCurrentDays(Integer currentDays) {
+		this.currentDays = currentDays;
+	}
+
+	@Column(name = "runningDays", nullable = false)
+	public Integer getRunningDays() {
+		return this.runningDays;
+	}
+
+	public void setRunningDays(Integer runningDays) {
+		this.runningDays = runningDays;
+	}
+
+	@Column(name = "uScore", nullable = false)
 	public Integer getUscore() {
 		return this.uscore;
 	}
@@ -124,7 +162,7 @@ public class User implements java.io.Serializable {
 		this.uscore = uscore;
 	}
 
-	@Column(name = "uStatus")
+	@Column(name = "uStatus", nullable = false)
 	public Integer getUstatus() {
 		return this.ustatus;
 	}
