@@ -1,11 +1,15 @@
 package com.mlnxBBS.web;
 
+import java.io.IOException;
+import java.nio.channels.SeekableByteChannel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.SortedMap;
+
+import javax.servlet.http.Cookie;
 
 import com.mlnxBBS.service.BannerService;
 import com.mlnxBBS.service.EventService;
@@ -17,6 +21,7 @@ import com.mlnxBBS.service.NavigationService;
 import com.mlnxBBS.service.PostService;
 import com.mlnxBBS.service.QrcodeService;
 import com.mlnxBBS.service.UserService;
+import com.mlnxBBS.tool.MD5;
 import com.mlnxBBS.core.PageBean;
 import com.mlnxBBS.core.User;
 
@@ -32,7 +37,33 @@ public class BBSAction extends BaseAction {
 	PostService postService = new PostService();
 	EventService eventService = new EventService();
 
+	/**
+	 * 显示论坛主页
+	 */
 	public void showBBSIndex() {
+		if (session.getAttribute("uId") == null) {
+			Cookie[] cs = request.getCookies();
+			int uId = 0;
+			String uPass = "";
+			for (int i = 0; i < cs.length; i++) {
+				if (cs[i].getName().equals("uId")) {
+					uId = Integer.parseInt(cs[i].getValue());
+				}
+				if (cs[i].getName().equals("uPass")) {
+					uPass = cs[i].getValue();
+				}
+			}
+
+			if (uId != 0) {
+				User user = userService.findById(uId);
+				MD5 md = new MD5();
+				if (md.GetMD5Code(user.getUpass()).equals(uPass)) {
+					session.setAttribute("uId", uId);
+					session.setAttribute("uAgname", user.getUagname());
+				}
+			}
+
+		}
 
 		// 显示当前日期
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd EEEE");// 设置日期格式
@@ -137,35 +168,83 @@ public class BBSAction extends BaseAction {
 		this.forward("bbs.jsp");
 	}
 
-	public void showBBSLogin() {
-		// 显示logo
-		SortedMap[] headers = headerService.executeQuery(
-				"select * from header where headerStatus = ?", new Object[]{1});
-		request.setAttribute("headers", headers);
+	/**
+	 * 显示论坛登录界面
+	 * 
+	 * @throws IOException
+	 */
+	public void showBBSLogin() throws IOException {
+		Cookie[] cs = request.getCookies();
+		int uId = 0;
+		String uPass = "";
+		for (int i = 0; i < cs.length; i++) {
+			if (cs[i].getName().equals("uId")) {
+				uId = Integer.parseInt(cs[i].getValue());
+			}
+			if (cs[i].getName().equals("uPass")) {
+				uPass = cs[i].getValue();
+			}
+		}
+		if (uId != 0) {
+			User user = userService.findById(uId);
+			MD5 md = new MD5();
+			if (md.GetMD5Code(user.getUpass()).equals(uPass)) {
+				session.setAttribute("uId", uId);
+				session.setAttribute("uAgname", user.getUagname());
+			}
+			response.sendRedirect("bbs!showBBSIndex.action");
+		} else {
+			// 显示logo
+			SortedMap[] headers = headerService.executeQuery(
+					"select * from header where headerStatus = ?",
+					new Object[]{1});
+			request.setAttribute("headers", headers);
 
-		// 显示二维码
-		// 第一显示位置
-		SortedMap[] qrcode1 = qrcodeService.executeQuery(
-				"select * from qrcode where qrPosition = ? and qrStatus = ?",
-				new Object[]{1, 1});
-		request.setAttribute("qrcode1", qrcode1);
+			// 显示二维码
+			// 第一显示位置
+			SortedMap[] qrcode1 = qrcodeService
+					.executeQuery(
+							"select * from qrcode where qrPosition = ? and qrStatus = ?",
+							new Object[]{1, 1});
+			request.setAttribute("qrcode1", qrcode1);
 
-		// 第二显示位置
-		SortedMap[] qrcode2 = qrcodeService.executeQuery(
-				"select * from qrcode where qrPosition = ? and qrStatus = ?",
-				new Object[]{2, 1});
-		request.setAttribute("qrcode2", qrcode2);
+			// 第二显示位置
+			SortedMap[] qrcode2 = qrcodeService
+					.executeQuery(
+							"select * from qrcode where qrPosition = ? and qrStatus = ?",
+							new Object[]{2, 1});
+			request.setAttribute("qrcode2", qrcode2);
 
-		// 显示联系信息
-		SortedMap[] contact = contactService.executeQuery(
-				"select * from contact where ctStatus = ?", new Object[]{1});
-		request.setAttribute("contact", contact);
+			// 显示联系信息
+			SortedMap[] contact = contactService
+					.executeQuery("select * from contact where ctStatus = ?",
+							new Object[]{1});
+			request.setAttribute("contact", contact);
 
-		// 显示版权信息
-		SortedMap[] copyright = copyrightService.executeQuery(
-				"select * from copyright where cpStatus = ?", new Object[]{1});
-		request.setAttribute("copyright", copyright);
+			// 显示版权信息
+			SortedMap[] copyright = copyrightService.executeQuery(
+					"select * from copyright where cpStatus = ?",
+					new Object[]{1});
+			request.setAttribute("copyright", copyright);
 
-		this.forward("bbsLogin.jsp");
+			this.forward("bbsLogin.jsp");
+		}
+	}
+	/**
+	 * 论坛用户登出
+	 * 
+	 * @throws IOException
+	 */
+	public void bbsLogout() throws IOException {
+		Cookie cookie1 = new Cookie("uId", null);
+		Cookie cookie2 = new Cookie("uPass", null);
+		cookie1.setMaxAge(0);
+		cookie2.setMaxAge(0);
+		cookie1.setPath("/");
+		cookie2.setPath("/");
+		response.addCookie(cookie1);
+		response.addCookie(cookie2);
+		session.invalidate();
+		response.sendRedirect("bbs!showBBSLogin.action");
 	}
 }

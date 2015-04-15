@@ -22,7 +22,7 @@
 <style>
 </style>
 </head>
-<body>
+<body onkeyup="eKeyup(event)">
   <div class="container">
     <nav class="navbar navbar-default navbar-mlnx" role="navigation">
     <div class="navbar-header">
@@ -39,21 +39,24 @@
     </ul>
     </nav>
 
-    <form id="mainform" class="form-horizontal" role="form">
+    <div id="mainform" class="form-horizontal" role="form">
       <div class="username">
-        <input placeholder="手机号/美灵思论坛账号" type="text" />
+        <input placeholder="手机号/美灵思论坛账号" type="text" id="uName"
+          name="uName" onfocus="reInput()" />
       </div>
       <div class="password ">
-        <input placeholder="密码" type="text" />
+        <input placeholder="密码" type="password" id="uPass" name="uPass"
+          onfocus="reInput()" />
       </div>
-      <div class="forget ">
-        <span style="margin-right: 7px;"><input type="checkbox" />
-        </span><label>记住密码</label>
+      <div id="error"></div>
+      <div>
+        <span style="margin-right: 7px;"><input type="checkbox"
+          id="remember" /> </span><label>记住密码</label>
       </div>
-      <div class="submit">
-        <button class="btn" contenteditable="true" type="submit">提交</button>
+      <div>
+        <button class="btn" onclick="bbsLogin()" id="bbsLogin">登录</button>
       </div>
-    </form>
+    </div>
 
 
   </div>
@@ -124,5 +127,6 @@
   <script type="text/javascript" src="js/jquery-2.0.0.min.js"></script>
   <!-- 包括所有已编译的插件 -->
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/mybbs.js"></script>
 </body>
 </html>

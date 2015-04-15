@@ -40,7 +40,16 @@
     </ul>
     <p class="navbar-text navbar-right head-size right"
       style="margin-right: 0px;">
-      欢迎 <a href="#" class="navbar-link">Thomas</a>
+      <c:if test="${sessionScope.uId==null }">
+        <a href="bbs!showBBSLogin.action">登录</a>
+        &emsp;
+        <a href="">注册</a>
+      </c:if>
+      <c:if test="${sessionScope.uId!=null }">
+        欢迎 <a href="#" class="navbar-link">${sessionScope.uAgname }</a>
+        <a href="bbs!bbsLogout.action">注销</a>
+      </c:if>
+
     </p>
     <form class="navbar-form navbar-right head-size hid" role="search">
       <div class="input-group">
@@ -98,8 +107,19 @@
               <li>${date }</li>
             </ul>
             <div class="table-cell" style="text-align: center;">
-              <button type="button" class="btn btn-primary">√&nbsp;&nbsp;&nbsp;&nbsp;签到</button>
-              <br> <span style="display: block;margin-top:15px;">已签到2天</span>
+              <c:if test="${sessionScope.uId==null }">
+                <a href="bbs!showBBSLogin.action"><button
+                    type="button" class="btn btn-primary">√&nbsp;&nbsp;&nbsp;&nbsp;签到</button></a>
+                <br>
+                <span style="display: block;margin-top:15px;">已签到0天</span>
+              </c:if>
+              <c:if test="${sessionScope.uId!=null }">
+                <button type="button" class="btn btn-primary"
+                  onclick="signIn()">√&nbsp;&nbsp;&nbsp;&nbsp;签到</button>
+                <br>
+                <span style="display: block;margin-top:15px;">已签到0天</span>
+              </c:if>
+
             </div>
           </div>
         </div>
