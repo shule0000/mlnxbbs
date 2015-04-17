@@ -1,11 +1,9 @@
 package com.mlnxBBS.web;
 
 import java.io.IOException;
-import java.nio.channels.SeekableByteChannel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.SortedMap;
 
@@ -43,23 +41,50 @@ public class BBSAction extends BaseAction {
 	public void showBBSIndex() {
 		if (session.getAttribute("uId") == null) {
 			Cookie[] cs = request.getCookies();
-			int uId = 0;
-			String uPass = "";
-			for (int i = 0; i < cs.length; i++) {
-				if (cs[i].getName().equals("uId")) {
-					uId = Integer.parseInt(cs[i].getValue());
-				}
-				if (cs[i].getName().equals("uPass")) {
-					uPass = cs[i].getValue();
-				}
-			}
+			if (cs != null) {
+				if (cs.length > 0) {
+					int uId = 0;
+					String uPass = "";
+					for (int i = 0; i < cs.length; i++) {
+						if (cs[i].getName().equals("uId")) {
+							uId = Integer.parseInt(cs[i].getValue());
+						}
+						if (cs[i].getName().equals("uPass")) {
+							uPass = cs[i].getValue();
+						}
+					}
 
-			if (uId != 0) {
-				User user = userService.findById(uId);
-				MD5 md = new MD5();
-				if (md.GetMD5Code(user.getUpass()).equals(uPass)) {
-					session.setAttribute("uId", uId);
-					session.setAttribute("uAgname", user.getUagname());
+					if (uId != 0) {
+						User user = userService.findById(uId);
+
+						MD5 md = new MD5();
+						if (md.GetMD5Code(user.getUpass()).equals(uPass)) {
+							SimpleDateFormat df = new SimpleDateFormat(
+									"yyyy/MM/dd EEEE");
+							int currTime = Integer.parseInt(df.format(
+									new Date()).substring(8, 10));
+							if (currTime
+									- Integer.parseInt(user.getSignInTime()
+											.toString().substring(8, 10)) == 0) {
+								session.setAttribute("signInFlag", true);
+								session.setAttribute("runningDays",
+										user.getRunningDays());
+							} else if (currTime
+									- Integer.parseInt(user.getSignInTime()
+											.toString().substring(8, 10)) > 1) {
+								session.setAttribute("signInFlag", false);
+								session.setAttribute("runningDays", 0);
+								user.setRunningDays(0);
+								userService.updateObject(user);
+							} else {
+								session.setAttribute("signInFlag", false);
+								session.setAttribute("runningDays",
+										user.getRunningDays());
+							}
+							session.setAttribute("uId", uId);
+							session.setAttribute("uAgname", user.getUagname());
+						}
+					}
 				}
 			}
 
@@ -175,24 +200,62 @@ public class BBSAction extends BaseAction {
 	 */
 	public void showBBSLogin() throws IOException {
 		Cookie[] cs = request.getCookies();
-		int uId = 0;
-		String uPass = "";
-		for (int i = 0; i < cs.length; i++) {
-			if (cs[i].getName().equals("uId")) {
-				uId = Integer.parseInt(cs[i].getValue());
+		if (cs != null) {
+
+			int uId = 0;
+			String uPass = "";
+			for (int i = 0; i < cs.length; i++) {
+				if (cs[i].getName().equals("uId")) {
+					uId = Integer.parseInt(cs[i].getValue());
+				}
+				if (cs[i].getName().equals("uPass")) {
+					uPass = cs[i].getValue();
+				}
 			}
-			if (cs[i].getName().equals("uPass")) {
-				uPass = cs[i].getValue();
+			if (uId != 0) {
+				User user = userService.findById(uId);
+				MD5 md = new MD5();
+				if (md.GetMD5Code(user.getUpass()).equals(uPass)) {
+					session.setAttribute("uId", uId);
+					session.setAttribute("uAgname", user.getUagname());
+				}
+				response.sendRedirect("bbs!showBBSIndex.action");
+			} else {
+				// 显示logo
+				SortedMap[] headers = headerService.executeQuery(
+						"select * from header where headerStatus = ?",
+						new Object[]{1});
+				request.setAttribute("headers", headers);
+
+				// 显示二维码
+				// 第一显示位置
+				SortedMap[] qrcode1 = qrcodeService
+						.executeQuery(
+								"select * from qrcode where qrPosition = ? and qrStatus = ?",
+								new Object[]{1, 1});
+				request.setAttribute("qrcode1", qrcode1);
+
+				// 第二显示位置
+				SortedMap[] qrcode2 = qrcodeService
+						.executeQuery(
+								"select * from qrcode where qrPosition = ? and qrStatus = ?",
+								new Object[]{2, 1});
+				request.setAttribute("qrcode2", qrcode2);
+
+				// 显示联系信息
+				SortedMap[] contact = contactService.executeQuery(
+						"select * from contact where ctStatus = ?",
+						new Object[]{1});
+				request.setAttribute("contact", contact);
+
+				// 显示版权信息
+				SortedMap[] copyright = copyrightService.executeQuery(
+						"select * from copyright where cpStatus = ?",
+						new Object[]{1});
+				request.setAttribute("copyright", copyright);
+
+				this.forward("bbsLogin.jsp");
 			}
-		}
-		if (uId != 0) {
-			User user = userService.findById(uId);
-			MD5 md = new MD5();
-			if (md.GetMD5Code(user.getUpass()).equals(uPass)) {
-				session.setAttribute("uId", uId);
-				session.setAttribute("uAgname", user.getUagname());
-			}
-			response.sendRedirect("bbs!showBBSIndex.action");
 		} else {
 			// 显示logo
 			SortedMap[] headers = headerService.executeQuery(

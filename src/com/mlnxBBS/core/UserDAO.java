@@ -1,5 +1,6 @@
 package com.mlnxBBS.core;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 import org.hibernate.LockOptions;
@@ -27,7 +28,6 @@ public class UserDAO extends BaseHibernateDAO {
 	public static final String UAGNAME = "uagname";
 	public static final String UICON = "uicon";
 	public static final String HISTORY_DAYS = "historyDays";
-	public static final String CURRENT_DAYS = "currentDays";
 	public static final String RUNNING_DAYS = "runningDays";
 	public static final String USCORE = "uscore";
 	public static final String USTATUS = "ustatus";
@@ -114,10 +114,6 @@ public class UserDAO extends BaseHibernateDAO {
 
 	public List<User> findByHistoryDays(Object historyDays) {
 		return findByProperty(HISTORY_DAYS, historyDays);
-	}
-
-	public List<User> findByCurrentDays(Object currentDays) {
-		return findByProperty(CURRENT_DAYS, currentDays);
 	}
 
 	public List<User> findByRunningDays(Object runningDays) {

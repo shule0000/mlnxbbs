@@ -106,7 +106,8 @@
               style="text-align: center; width: 50%; padding: 25px 0px; border-right: 1px solid rgb(212, 212, 212);">
               <li>${date }</li>
             </ul>
-            <div class="table-cell" style="text-align: center;">
+            <div id="signIn" class="table-cell"
+              style="text-align: center;">
               <c:if test="${sessionScope.uId==null }">
                 <a href="bbs!showBBSLogin.action"><button
                     type="button" class="btn btn-primary">√&nbsp;&nbsp;&nbsp;&nbsp;签到</button></a>
@@ -114,10 +115,17 @@
                 <span style="display: block;margin-top:15px;">已签到0天</span>
               </c:if>
               <c:if test="${sessionScope.uId!=null }">
-                <button type="button" class="btn btn-primary"
-                  onclick="signIn()">√&nbsp;&nbsp;&nbsp;&nbsp;签到</button>
+                <c:if test="${sessionScope.signInFlag }">
+                  <button type="button" class="btn btn-primary"
+                    disabled="disabled">√&nbsp;&nbsp;&nbsp;&nbsp;已签到</button>
+                </c:if>
+                <c:if test="${!sessionScope.signInFlag }">
+                  <button type="button" class="btn btn-primary"
+                    onclick="signIn(${sessionScope.uId })">√&nbsp;&nbsp;&nbsp;&nbsp;签到</button>
+                </c:if>
                 <br>
-                <span style="display: block;margin-top:15px;">已签到0天</span>
+                <span style="display: block;margin-top:15px;">已连续签到${sessionScope.runningDays
+                  }天</span>
               </c:if>
 
             </div>

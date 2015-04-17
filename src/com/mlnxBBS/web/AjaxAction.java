@@ -2,7 +2,10 @@ package com.mlnxBBS.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.SortedMap;
@@ -50,6 +53,11 @@ public class AjaxAction extends BaseAction {
 		this.forward("showPost.jsp");
 	}
 
+	/**
+	 * 论坛用户登录
+	 * 
+	 * @throws IOException
+	 */
 	public String uName;
 	public String uPass;
 	public boolean remember;
@@ -76,6 +84,28 @@ public class AjaxAction extends BaseAction {
 		int error = 0;
 		if (exist) {
 			if (currUser.getUstatus() == 1) {
+				SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd EEEE");
+				int currTime = Integer.parseInt(df.format(new Date())
+						.substring(8, 10));
+				if (currTime
+						- Integer.parseInt(currUser.getSignInTime().toString()
+								.substring(8, 10)) == 0) {
+					session.setAttribute("signInFlag", true);
+					session.setAttribute("runningDays",
+							currUser.getRunningDays());
+				} else if (currTime
+						- Integer.parseInt(currUser.getSignInTime().toString()
+								.substring(8, 10)) > 1) {
+					session.setAttribute("signInFlag", false);
+					session.setAttribute("runningDays", 0);
+					currUser.setRunningDays(0);
+					userService.updateObject(currUser);
+				} else {
+					session.setAttribute("signInFlag", false);
+					session.setAttribute("runningDays",
+							currUser.getRunningDays());
+				}
+
 				session.setAttribute("uId", currUser.getUid());
 				session.setAttribute("uAgname", currUser.getUagname());
 				if (remember) {
@@ -101,5 +131,26 @@ public class AjaxAction extends BaseAction {
 		}
 
 		out.print(error);
+	}
+
+	/**
+	 * 签到
+	 * 
+	 * @throws IOException
+	 */
+	public int uId;
+	public void doSignIn() throws IOException {
+		PrintWriter out = ServletActionContext.getResponse().getWriter();
+		int runningDays;
+		Timestamp ts = new Timestamp(new Date().getTime());
+		User user = userService.findById(uId);
+		user.setHistoryDays(user.getHistoryDays() + 1);
+		user.setRunningDays(user.getRunningDays() + 1);
+		user.setSignInTime(ts);
+		runningDays = user.getRunningDays();
+		session.setAttribute("signInFlag", true);
+		session.setAttribute("runningDays", runningDays);
+		userService.updateObject(user);
+		out.print(runningDays);
 	}
 }

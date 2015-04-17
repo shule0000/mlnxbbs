@@ -1,5 +1,6 @@
 package com.mlnxBBS.core;
 
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -27,8 +28,8 @@ public class User implements java.io.Serializable {
 	private String uagname;
 	private String uicon;
 	private Integer historyDays;
-	private Integer currentDays;
 	private Integer runningDays;
+	private Timestamp signInTime;
 	private Integer uscore;
 	private Integer ustatus;
 	private Set<Response> responsesForReplyerId = new HashSet<Response>(0);
@@ -44,14 +45,13 @@ public class User implements java.io.Serializable {
 
 	/** minimal constructor */
 	public User(String uname, String upass, String uagname, String uicon,
-			Integer historyDays, Integer currentDays, Integer runningDays,
-			Integer uscore, Integer ustatus) {
+			Integer historyDays, Integer runningDays, Integer uscore,
+			Integer ustatus) {
 		this.uname = uname;
 		this.upass = upass;
 		this.uagname = uagname;
 		this.uicon = uicon;
 		this.historyDays = historyDays;
-		this.currentDays = currentDays;
 		this.runningDays = runningDays;
 		this.uscore = uscore;
 		this.ustatus = ustatus;
@@ -59,7 +59,7 @@ public class User implements java.io.Serializable {
 
 	/** full constructor */
 	public User(String uname, String upass, String uagname, String uicon,
-			Integer historyDays, Integer currentDays, Integer runningDays,
+			Integer historyDays, Integer runningDays, Timestamp signInTime,
 			Integer uscore, Integer ustatus,
 			Set<Response> responsesForReplyerId, Set<Praise> praises,
 			Set<Response> responsesForToUid, Set<Post> posts) {
@@ -68,8 +68,8 @@ public class User implements java.io.Serializable {
 		this.uagname = uagname;
 		this.uicon = uicon;
 		this.historyDays = historyDays;
-		this.currentDays = currentDays;
 		this.runningDays = runningDays;
+		this.signInTime = signInTime;
 		this.uscore = uscore;
 		this.ustatus = ustatus;
 		this.responsesForReplyerId = responsesForReplyerId;
@@ -135,15 +135,6 @@ public class User implements java.io.Serializable {
 		this.historyDays = historyDays;
 	}
 
-	@Column(name = "currentDays", nullable = false)
-	public Integer getCurrentDays() {
-		return this.currentDays;
-	}
-
-	public void setCurrentDays(Integer currentDays) {
-		this.currentDays = currentDays;
-	}
-
 	@Column(name = "runningDays", nullable = false)
 	public Integer getRunningDays() {
 		return this.runningDays;
@@ -151,6 +142,15 @@ public class User implements java.io.Serializable {
 
 	public void setRunningDays(Integer runningDays) {
 		this.runningDays = runningDays;
+	}
+
+	@Column(name = "signInTime", length = 19)
+	public Timestamp getSignInTime() {
+		return this.signInTime;
+	}
+
+	public void setSignInTime(Timestamp signInTime) {
+		this.signInTime = signInTime;
 	}
 
 	@Column(name = "uScore", nullable = false)

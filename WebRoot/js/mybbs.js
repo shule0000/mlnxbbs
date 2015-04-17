@@ -67,3 +67,23 @@ function eKeyup(e) {
 function reInput() {
 	document.getElementById("error").innerHTML = "";
 }
+
+// 签到
+function signIn(uId) {
+	$
+			.ajax({
+				type : "post",// 请求方式
+				url : "ajax!doSignIn.action",// 发送请求地址
+				data : {// 发送给数据库的数据
+					uId : uId
+
+				},
+				// 请求成功后的回调函数有两个参数
+
+				success : function(data, textStatus) {
+					document.getElementById("signIn").innerHTML = "<button type='button' class='btn btn-primary'disabled='disabled'>√&nbsp;&nbsp;&nbsp;&nbsp;已签到</button><br><span style='display: block;margin-top:15px;'>已连续签到"
+							+ data + "天</span>";
+				}
+
+			});
+}
