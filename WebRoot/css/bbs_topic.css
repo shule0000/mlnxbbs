@@ -1,0 +1,87 @@
+body {
+  font: 14px Tahoma, "Microsoft Yahei", "Simsun";
+  background-color: #eee;
+}
+
+.head-size {
+  height: 70px;
+  padding: 10px;
+}
+
+.table {
+  display: table;
+}
+
+.table-cell {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.bg-white {
+  background-color: #fff;
+}
+
+.nav-topic {
+  padding: 15px;
+  border-bottom: 1px solid #D4D4D4;
+}
+
+.nav-topic-model {
+  padding: 10px;
+  border-bottom: 1px solid #F4F4F4;
+}
+
+.pd15{
+  padding:15px;
+}
+
+#bbs_content li>div>a{
+  width:10%;
+  float:left;
+}
+
+#bbs_content li p{
+  width:90%;
+  float:left;
+}
+.border-bottom{
+  border-bottom: 1px solid #F4F4F4;
+}
+.footer {
+  margin-top: 20px;
+  padding: 15px;
+}
+
+.center {
+  text-align: center;
+}
+
+@media ( max-width :931px) {
+  .nav {
+    display: none;
+  }
+}
+
+@media ( max-width :783px) {
+  .nav {
+    display: none;
+  }
+  .right {
+    float: right;
+  }
+  .left {
+    float: left;
+  }
+}
+
+@media ( max-width :372px) {
+  .nav {
+    display: none;
+  }
+  .hid {
+    display: none;
+  }
+  .left {
+    float: left;
+  }
+}

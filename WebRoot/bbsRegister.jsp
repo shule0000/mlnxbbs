@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="f" uri="http://java.sun.com/jstl/fmt_rt"%>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -10,7 +10,7 @@
   content="width=device-width,inital-scale=1.0,maximum-scale=1.0,use-scalable=no">
 <meta name="Author" content="bruce。bei">
 <meta name="Description" content="宁波美灵思医疗科技有限公司官网专用">
-<title>美灵思论坛</title>
+<title>美灵思论坛注册</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
 <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
@@ -22,44 +22,58 @@
 <style>
 </style>
 </head>
-<body onkeyup="eKeyup(event)">
+<body>
   <div class="container">
     <nav class="navbar navbar-default navbar-mlnx" role="navigation">
-    <div class="navbar-header">
-      <c:forEach items="${headers }" var="hea">
-        <a class="navbar-brand" href="#"><img
-          src="/docs/upload/${hea.logoImg }"
-          style="height: 50px; margin-top: -7.5px;"></a>
-      </c:forEach>
-    </div>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="bbs!showBBSLogin.action"><span
-          style="font-size: 14px;">登录</span></a></li>
-      <li><a href="javascript:void(0)">|</a></li>
-      <li><a href="bbs!showBBSRegister.action"><span
-          style="font-size: 14px;">注册</span></a></li>
-    </ul>
+      <div class="navbar-header">
+        <c:forEach items="${headers }" var="hea">
+          <a class="navbar-brand" href="#"><img
+            src="/docs/upload/${hea.logoImg }"
+            style="height: 50px; margin-top: -7.5px;"></a>
+        </c:forEach>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="bbs!showBBSLogin.action"><span
+            style="font-size: 14px;">登录</span></a></li>
+        <li><a href="javascript:void(0)">|</a></li>
+        <li><a href="bbs!showBBSRegister.action"><span
+            style="font-size: 14px;">注册</span></a></li>
+      </ul>
     </nav>
 
-    <div id="mainform" class="form-horizontal" role="form">
+    <form onsubmit="return doRegister('check')" id="mainform"
+      class="form-horizontal" role="form"
+      action="bbs!doBBSRegister.action" method="post">
       <div class="username">
-        <input placeholder="手机号/美灵思论坛账号" type="text" id="uName"
-          name="uName" onfocus="reInput()" />
+        <input placeholder="美灵思论坛账号" type="text" name="uName" id="uName"
+          oninput="checkName()" /> <span id="checkName"></span>
       </div>
       <div class="password ">
-        <input placeholder="密码" type="password" id="uPass" name="uPass"
-          onfocus="reInput()" />
+        <input placeholder="密码" type="password" name="uPass" id="uPass"
+          oninput="checkPass()" /> <span id="checkPass"></span>
       </div>
-      <div id="error"></div>
-      <div>
+      <div class="email">
+        <input oninput="checkEmail()" placeholder="安全邮箱" type="text"
+          name="uEmail" id="uEmail" /> <span id="checkEmail"></span> <span
+          onclick="sendCheck(time())"><input type="button"
+          value="点击发送验证码" id="emailBt" disabled="disabled"><span
+          id="time" style="color: red"></span></span>
+      </div>
+      <input id="status" type="hidden" value="1">
+      <div class="emailcode ">
+        <input placeholder="邮箱验证码" name="check" id="check" />
+      </div>
+      <div class="agreement">
         <span style="margin-right: 7px;"><input type="checkbox"
-          id="remember" /> </span><label>记住密码</label>
+          id="box" onclick="checkBox()" /> </span><label class="pointer"
+          for="acceptFlyme" tabindex="0">我已阅读并接受</label> <a href="#"
+          target="_blank" class="linkABlue">《mlnx服务协议条款》</a>
       </div>
-      <div>
-        <button class="btn" onclick="bbsLogin('${sessionScope.url}')"
-          id="bbsLogin">登录</button>
+      <div class="submit">
+        <button class="btn" type="submit" id="register"
+          disabled="disabled">注册</button>
       </div>
-    </div>
+    </form>
 
 
   </div>
@@ -96,22 +110,22 @@
           <a href="http://weibo.com/u/1950616540" target="_blank"
             style="color: #c19b85">微博关注</a>
         </address>
-      </div>
-      <div class="center visible-xs">
-        <address>
-          <strong style="font-size: 20px;">宁波市美灵思医疗科技有限公司</strong><br>
-          <c:forEach items="${contact }" var="ct">
+        <div class="center visible-xs">
+          <address>
+            <strong style="font-size: 20px;">宁波市美灵思医疗科技有限公司</strong><br>
+            <c:forEach items="${contact }" var="ct">
         地址：<a href="http://j.map.baidu.com/9FV9x" target="_blank">${ct.ctAdress
-              }</a>
-            <br>
+                }</a>
+              <br>
         电话：<a href="tel:${ct.ctPhone }">${ct.ctPhone }</a>
-            <br> 传真：<a href="tel:${ct.ctFax }">${ct.ctFax }</a>
-            <br> 邮箱：<a href="${ct.ctEmail }">${ct.ctEmail }</a>
-            <br>
-          </c:forEach>
-          <a href="http://weibo.com/u/1950616540" target="_blank"
-            style="color: #c19b85">微博关注</a>
-        </address>
+              <br> 传真：<a href="tel:${ct.ctFax }">${ct.ctFax }</a>
+              <br> 邮箱：<a href="${ct.ctEmail }">${ct.ctEmail }</a>
+              <br>
+            </c:forEach>
+            <a href="http://weibo.com/u/1950616540" target="_blank"
+              style="color: #c19b85">微博关注</a>
+          </address>
+        </div>
       </div>
 
       <div class="col-xs-12">

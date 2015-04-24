@@ -25,7 +25,9 @@ public class PostDAO extends BaseHibernateDAO {
 	// property constants
 	public static final String PO_TITLE = "poTitle";
 	public static final String PO_CONTENT = "poContent";
-	public static final String PO_TYPE = "poType";
+	public static final String PO_TYPE1 = "poType1";
+	public static final String PO_TYPE2 = "poType2";
+	public static final String PO_TYPE3 = "poType3";
 	public static final String PO_PRAISE = "poPraise";
 	public static final String PO_STATUS = "poStatus";
 
@@ -101,8 +103,16 @@ public class PostDAO extends BaseHibernateDAO {
 		return findByProperty(PO_CONTENT, poContent);
 	}
 
-	public List<Post> findByPoType(Object poType) {
-		return findByProperty(PO_TYPE, poType);
+	public List<Post> findByPoType1(Object poType1) {
+		return findByProperty(PO_TYPE1, poType1);
+	}
+
+	public List<Post> findByPoType2(Object poType2) {
+		return findByProperty(PO_TYPE2, poType2);
+	}
+
+	public List<Post> findByPoType3(Object poType3) {
+		return findByProperty(PO_TYPE3, poType3);
 	}
 
 	public List<Post> findByPoPraise(Object poPraise) {

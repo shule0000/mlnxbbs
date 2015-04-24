@@ -29,8 +29,11 @@ public class Post implements java.io.Serializable {
 	private String poTitle;
 	private String poContent;
 	private Timestamp poTime;
-	private Integer poType;
+	private Integer poType1;
+	private Integer poType2;
+	private Integer poType3;
 	private Integer poPraise;
+	private Timestamp lastRspTime;
 	private Integer poStatus;
 	private Set<Praise> praises = new HashSet<Praise>(0);
 	private Set<Response> responses = new HashSet<Response>(0);
@@ -42,26 +45,32 @@ public class Post implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Post(User user, String poTitle, String poContent, Integer poType,
-			Integer poPraise, Integer poStatus) {
+	public Post(User user, String poTitle, String poContent, Integer poType1,
+			Integer poType2, Integer poType3, Integer poPraise, Integer poStatus) {
 		this.user = user;
 		this.poTitle = poTitle;
 		this.poContent = poContent;
-		this.poType = poType;
+		this.poType1 = poType1;
+		this.poType2 = poType2;
+		this.poType3 = poType3;
 		this.poPraise = poPraise;
 		this.poStatus = poStatus;
 	}
 
 	/** full constructor */
 	public Post(User user, String poTitle, String poContent, Timestamp poTime,
-			Integer poType, Integer poPraise, Integer poStatus,
+			Integer poType1, Integer poType2, Integer poType3,
+			Integer poPraise, Timestamp lastRspTime, Integer poStatus,
 			Set<Praise> praises, Set<Response> responses) {
 		this.user = user;
 		this.poTitle = poTitle;
 		this.poContent = poContent;
 		this.poTime = poTime;
-		this.poType = poType;
+		this.poType1 = poType1;
+		this.poType2 = poType2;
+		this.poType3 = poType3;
 		this.poPraise = poPraise;
+		this.lastRspTime = lastRspTime;
 		this.poStatus = poStatus;
 		this.praises = praises;
 		this.responses = responses;
@@ -115,13 +124,31 @@ public class Post implements java.io.Serializable {
 		this.poTime = poTime;
 	}
 
-	@Column(name = "poType", nullable = false)
-	public Integer getPoType() {
-		return this.poType;
+	@Column(name = "poType1", nullable = false)
+	public Integer getPoType1() {
+		return this.poType1;
 	}
 
-	public void setPoType(Integer poType) {
-		this.poType = poType;
+	public void setPoType1(Integer poType1) {
+		this.poType1 = poType1;
+	}
+
+	@Column(name = "poType2", nullable = false)
+	public Integer getPoType2() {
+		return this.poType2;
+	}
+
+	public void setPoType2(Integer poType2) {
+		this.poType2 = poType2;
+	}
+
+	@Column(name = "poType3", nullable = false)
+	public Integer getPoType3() {
+		return this.poType3;
+	}
+
+	public void setPoType3(Integer poType3) {
+		this.poType3 = poType3;
 	}
 
 	@Column(name = "poPraise", nullable = false)
@@ -131,6 +158,15 @@ public class Post implements java.io.Serializable {
 
 	public void setPoPraise(Integer poPraise) {
 		this.poPraise = poPraise;
+	}
+
+	@Column(name = "lastRspTime", length = 19)
+	public Timestamp getLastRspTime() {
+		return this.lastRspTime;
+	}
+
+	public void setLastRspTime(Timestamp lastRspTime) {
+		this.lastRspTime = lastRspTime;
 	}
 
 	@Column(name = "poStatus", nullable = false)

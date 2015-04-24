@@ -3,7 +3,7 @@ package com.mlnxBBS.core;
 public class PageBean {
 
 	private int totalPageCount;// 总页数
-	private int pageCount = 1;// 每页显示的数量
+	private int pageCount = 5;// 每页显示的数量
 	private int currentPageNum;// 当前页码
 	private int totalCount;// 总条数
 

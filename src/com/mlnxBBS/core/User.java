@@ -25,6 +25,7 @@ public class User implements java.io.Serializable {
 	private Integer uid;
 	private String uname;
 	private String upass;
+	private String uemail;
 	private String uagname;
 	private String uicon;
 	private Integer historyDays;
@@ -44,11 +45,12 @@ public class User implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public User(String uname, String upass, String uagname, String uicon,
-			Integer historyDays, Integer runningDays, Integer uscore,
-			Integer ustatus) {
+	public User(String uname, String upass, String uemail, String uagname,
+			String uicon, Integer historyDays, Integer runningDays,
+			Integer uscore, Integer ustatus) {
 		this.uname = uname;
 		this.upass = upass;
+		this.uemail = uemail;
 		this.uagname = uagname;
 		this.uicon = uicon;
 		this.historyDays = historyDays;
@@ -58,13 +60,14 @@ public class User implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public User(String uname, String upass, String uagname, String uicon,
-			Integer historyDays, Integer runningDays, Timestamp signInTime,
-			Integer uscore, Integer ustatus,
+	public User(String uname, String upass, String uemail, String uagname,
+			String uicon, Integer historyDays, Integer runningDays,
+			Timestamp signInTime, Integer uscore, Integer ustatus,
 			Set<Response> responsesForReplyerId, Set<Praise> praises,
 			Set<Response> responsesForToUid, Set<Post> posts) {
 		this.uname = uname;
 		this.upass = upass;
+		this.uemail = uemail;
 		this.uagname = uagname;
 		this.uicon = uicon;
 		this.historyDays = historyDays;
@@ -106,6 +109,15 @@ public class User implements java.io.Serializable {
 
 	public void setUpass(String upass) {
 		this.upass = upass;
+	}
+
+	@Column(name = "uEmail", nullable = false, length = 50)
+	public String getUemail() {
+		return this.uemail;
+	}
+
+	public void setUemail(String uemail) {
+		this.uemail = uemail;
 	}
 
 	@Column(name = "uAgname", nullable = false, length = 50)

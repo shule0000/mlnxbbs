@@ -1,0 +1,158 @@
+body {
+  font: 14px Tahoma, "Microsoft Yahei", "Simsun";
+  background-color: #eee;
+}
+
+.head-size {
+  height: 70px;
+  padding: 10px;
+}
+
+.table {
+  display: table;
+}
+
+.table-cell {
+  display: table-cell;
+  vertical-align: middle;
+}
+.topic{
+  
+  font-family: "微软雅黑";
+color: #006FB9;
+font-size: 18px;
+font-weight: 500;
+}
+.tedt {
+    width: 98%;
+    border-width: 1px;
+    border-style: solid;
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    border-image: none;
+    border-color: #999 #CCC #CCC #999;
+}
+
+.tedt .bar {
+    padding: 0px 10px 0px 0px;
+    height: 25px;
+    line-height: 25px;
+    border-bottom: 1px solid #DFDFDF;
+    background: none repeat scroll 0% 0% #F2F2F2;
+}
+.y {
+    float: right;
+}
+.bg-white {
+  background-color: #fff;
+}
+
+.nav-topic {
+  padding: 15px;
+  border-bottom: 1px solid #D4D4D4;
+}
+
+.nav-topic-model {
+  padding: 10px;
+  border-bottom: 1px solid #F4F4F4;
+}
+
+.pd15 {
+  padding: 15px;
+}
+
+.pd20 {
+  padding: 20px;
+}
+
+#content_title>a {
+  width: 10%;
+  float: left;
+}
+
+#rel-bbs>li {
+  float: left;
+  width: 50%;
+}
+.pbm{
+  border-bottom: 1px solid #CBCBCB !important;
+  padding-bottom: 10px !important;
+}
+
+
+.border-bottom {
+  border-bottom: 1px solid #F4F4F4;
+}
+.h-forum-do {
+    margin-bottom: 20px;
+    text-align: center;
+}
+.h-forum-do a {
+    border: 1px solid #979797;
+    line-height: 40px;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #9B9B9B;
+    display: inline-block;
+    width: 120px;
+    height: 40px;
+    text-indent: 10px;
+    text-decoration: none;
+    text-align: left;
+    margin-right: 20px;
+}
+.h-forum-do  i {
+    font-size: 18px;
+}
+.h-forum-do  i {
+    margin-right: 20px;
+}
+.pob em {
+    float: right;
+}
+
+.tshare {
+    padding: 0px;
+    float: left;
+    margin-top: 2px;
+}
+.footer {
+  margin-top: 20px;
+  padding: 15px;
+}
+
+.center {
+  text-align: center;
+}
+
+@media ( max-width :931px) {
+  .nav {
+    display: none;
+  }
+}
+
+@media ( max-width :783px) {
+  .nav {
+    display: none;
+  }
+  .right {
+    float: right;
+  }
+  .left {
+    float: left;
+  }
+}
+
+@media ( max-width :372px) {
+  .nav {
+    display: none;
+  }
+  .hid {
+    display: none;
+  }
+  .left {
+    float: left;
+  }
+}
