@@ -297,7 +297,14 @@ public class AjaxAction extends BaseAction {
 		}
 		request.setAttribute("pb", pb);
 		request.setAttribute("posts", posts);
-		this.forward("showPostOfProduct.jsp");
+		if (type3 == 1) {
+			this.forward("showPostOfAll_1.jsp");
+		} else if (type3 == 2) {
+			this.forward("showPostOfAll_2.jsp");
+		} else {
+			this.forward("showPostOfAll_0.jsp");
+		}
+
 	}
 
 	/**
@@ -318,6 +325,9 @@ public class AjaxAction extends BaseAction {
 		String time = "2000-" + df.format(ts);
 		post.setPoTime(ts);
 		post.setPoType1(type1_1);
+		if (type2_1 == 0) {
+			type2_1 = 1;
+		}
 		post.setPoType2(type2_1);
 		post.setPoType3(type3_1);
 		post.setPoPraise(0);

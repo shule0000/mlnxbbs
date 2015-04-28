@@ -138,48 +138,50 @@
                   </div></li>
               </c:forEach>
             </ul>
-            <div align="center" style="margin-top: 15px">
-              <a style="cursor: pointer; text-decoration: none;"
-                onclick="queryPostPdu('1')">首页</a> &emsp;
 
-              <c:if test="${pb.totalPageCount<=5 }">
-                <c:set var="i" value="1"></c:set>
-                <c:forEach begin="0" end="${pb.totalPageCount-1 }">
-                  <c:if test="${i==1 }">
-                    <span style="color: gray">${i }</span>
-                    &emsp;
-                  </c:if>
-                  <c:if test="${i!=1 }">
-                    <a
-                      style="cursor: pointer;
+            <c:if test="${pb.totalPageCount>0 }">
+              <div align="center" style="margin-top: 15px">
+                <a style="cursor: pointer; text-decoration: none;"
+                  onclick="queryPostPdu('1')">首页</a> &emsp;
+
+                <c:if test="${pb.totalPageCount<=5 }">
+                  <c:set var="i" value="1"></c:set>
+                  <c:forEach begin="0" end="${pb.totalPageCount-1 }">
+                    <c:if test="${i==1 }">
+                      <span style="color: gray">${i }</span>
+                      &emsp;
+                    </c:if>
+                    <c:if test="${i!=1 }">
+                      <a
+                        style="cursor: pointer;
                     text-decoration: none;"
-                      onclick="queryPostPdu(${i })">${i }</a>
-                    &emsp;
-                  </c:if>
-                  <c:set var="i" value="${i+1}"></c:set>
-                </c:forEach>
-              </c:if>
-              <c:if test="${pb.totalPageCount>5 }">
-                <c:set var="i" value="1"></c:set>
-                <c:forEach begin="0" end="4">
-                  <c:if test="${i==1 }">
-                    <span style="color: gray">${i }</span>
-                    &emsp;
-                  </c:if>
-                  <c:if test="${i!=1 }">
-                    <a id="c${i }"
-                      style="cursor: pointer;
+                        onclick="queryPostPdu(${i })">${i }</a>
+                      &emsp;
+                    </c:if>
+                    <c:set var="i" value="${i+1}"></c:set>
+                  </c:forEach>
+                </c:if>
+                <c:if test="${pb.totalPageCount>5 }">
+                  <c:set var="i" value="1"></c:set>
+                  <c:forEach begin="0" end="4">
+                    <c:if test="${i==1 }">
+                      <span style="color: gray">${i }</span>
+                      &emsp;
+                    </c:if>
+                    <c:if test="${i!=1 }">
+                      <a id="c${i }"
+                        style="cursor: pointer;
                     text-decoration: none; color:"
-                      onclick="queryPostPdu(${i })">${i }</a>
-                    &emsp;
-                  </c:if>
-                  <c:set var="i" value="${i+1}"></c:set>
-                </c:forEach>
-              </c:if>
-              <a style="cursor: pointer; text-decoration: none;"
-                onclick="queryPostPdu(${pb.totalPageCount})">末页</a>
-            </div>
-
+                        onclick="queryPostPdu(${i })">${i }</a>
+                      &emsp;
+                    </c:if>
+                    <c:set var="i" value="${i+1}"></c:set>
+                  </c:forEach>
+                </c:if>
+                <a style="cursor: pointer; text-decoration: none;"
+                  onclick="queryPostPdu(${pb.totalPageCount})">末页</a>
+              </div>
+            </c:if>
 
           </div>
         </div>
