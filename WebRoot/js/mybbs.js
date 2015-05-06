@@ -321,7 +321,7 @@ function checkBox() {
 function doRegister(name) {
 	var cookie;
 	var arrstr = document.cookie.split("; ");
-	for (var i = 0; i < arrstr.length; i++) {
+	for ( var i = 0; i < arrstr.length; i++) {
 		var temp = arrstr[i].split("=");
 		if (temp[0] == name) {
 			cookie = unescape(temp[1]);
@@ -425,6 +425,26 @@ function showMore(poId, position) {
 		success : function(data, textStatus) {
 			$("#continue" + position).html(data);
 			document.getElementById("continue" + position).id = "oldPast";
+		}
+
+	});
+}
+
+// 点赞帖子
+function doPraise(praiserId, toPid) {
+	document.getElementById("doPraise").innerHTML = "<i class='fa fa-thumbs-up'></i>已赞";
+	document.getElementById("doPraise").disabled = "disabled";
+	$.ajax({
+		type : "post",// 请求方式
+		url : "ajax!doPraise.action",// 发送请求地址
+		data : {// 发送给数据库的数据
+			praiserId : praiserId,
+			toPid : toPid
+		},
+		// 请求成功后的回调函数有两个参数
+
+		success : function(data, textStatus) {
+
 		}
 
 	});

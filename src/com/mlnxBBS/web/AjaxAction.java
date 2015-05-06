@@ -17,10 +17,12 @@ import org.apache.struts2.ServletActionContext;
 
 import com.mlnxBBS.core.PageBean;
 import com.mlnxBBS.core.Post;
+import com.mlnxBBS.core.Praise;
 import com.mlnxBBS.core.Response;
 import com.mlnxBBS.core.User;
 import com.mlnxBBS.service.PageService;
 import com.mlnxBBS.service.PostService;
+import com.mlnxBBS.service.PraiseService;
 import com.mlnxBBS.service.ResponseService;
 import com.mlnxBBS.service.UserService;
 import com.mlnxBBS.tool.MD5;
@@ -32,6 +34,7 @@ public class AjaxAction extends BaseAction {
 	UserService userService = new UserService();
 	ResponseService responseService = new ResponseService();
 	PostService postService = new PostService();
+	PraiseService praiseService = new PraiseService();
 
 	/**
 	 * 主页分页查找帖子并显示
@@ -451,5 +454,22 @@ public class AjaxAction extends BaseAction {
 		request.setAttribute("position", position3);
 		request.setAttribute("mores", mores);
 		this.forward("showMore.jsp");
+	}
+
+	/**
+	 * 赞帖子
+	 */
+	public int praiserId;
+	public int toPid;
+	public void doPraise() {
+		Praise praise = new Praise();
+		praise.setUser(userService.findById(praiserId));
+		praise.setPost(postService.findById(toPid));
+
+		praiseService.save(praise);
+
+		Post post = postService.findById(toPid);
+		post.setPoPraise(post.getPoPraise() + 1);
+		postService.updateObject(post);
 	}
 }

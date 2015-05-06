@@ -18,6 +18,7 @@ import com.mlnxBBS.service.ContactService;
 import com.mlnxBBS.service.CopyrightService;
 import com.mlnxBBS.service.NavigationService;
 import com.mlnxBBS.service.PostService;
+import com.mlnxBBS.service.PraiseService;
 import com.mlnxBBS.service.QrcodeService;
 import com.mlnxBBS.service.ResponseService;
 import com.mlnxBBS.service.UserService;
@@ -38,6 +39,7 @@ public class BBSAction extends BaseAction {
 	PostService postService = new PostService();
 	EventService eventService = new EventService();
 	ResponseService responseService = new ResponseService();
+	PraiseService praiseService = new PraiseService();
 
 	/**
 	 * 显示论坛主页
@@ -580,6 +582,21 @@ public class BBSAction extends BaseAction {
 	 */
 	public int poId;
 	public void showPostContent() {
+		// 查询是否点赞
+		if (session.getAttribute("uId") == null) {
+			request.setAttribute("praise", 0);
+		} else {
+			@SuppressWarnings("rawtypes")
+			SortedMap[] sm = praiseService.executeQuery(
+					"select * from praise where praiserId = ? and toPid = ?",
+					new Object[]{session.getAttribute("uId"), poId});
+			if (sm.length > 0) {
+				request.setAttribute("praise", 2);
+			} else {
+				request.setAttribute("praise", 1);
+			}
+		}
+
 		// 显示logo
 		@SuppressWarnings("rawtypes")
 		SortedMap[] headers = headerService.executeQuery(

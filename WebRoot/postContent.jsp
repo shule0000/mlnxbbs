@@ -109,9 +109,26 @@
           </div>
           <div class="h-forum-do">
             <div class="h-forum-do">
-              <a href="javascript:;" id="do_praise" class="haspraised"><i
-                class="fa fa-thumbs-up"></i>赞</a> <a href="javascript:;"
-                id="do_reward" class="hasreward"><i
+              <c:if test="${praise==0 }">
+                <a href="bbs!showBBSLogin.action" id="do_praise"
+                  class="haspraised"><i class="fa fa-thumbs-up"></i>赞</a>
+              </c:if>
+              <c:if test="${praise==1 }">
+                <a id="do_praise" class="haspraised"><button
+                    id="doPraise"
+                    onclick="doPraise('${sessionScope.uId }', '${post.poId }')">
+                    <i class="fa fa-thumbs-up"></i>赞
+                  </button></a>
+              </c:if>
+              <c:if test="${praise==2 }">
+
+                <a id="do_praise" class="haspraised"><button
+                    disabled="disabled">
+                    <i class="fa fa-thumbs-up"></i>已赞
+                  </button></a>
+
+              </c:if>
+              <a href="javascript:;" id="do_reward" class="hasreward"><i
                 class="fa fa-database"></i>打赏</a> <a href="javascript:;"
                 id="do_favorite" class="hasfavorite"><i
                 class="fa fa-star"></i>收藏</a>
