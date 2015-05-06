@@ -52,22 +52,24 @@
         <input placeholder="密码" type="password" name="uPass" id="uPass"
           oninput="checkPass()" /> <span id="checkPass"></span>
       </div>
-      <div class="email">
+      <div class="email position-relative">
         <input oninput="checkEmail()" placeholder="安全邮箱" type="text"
           name="uEmail" id="uEmail" /> <span id="checkEmail"></span> <span
-          onclick="sendCheck(time())"><input type="button"
-          value="点击发送验证码" id="emailBt" disabled="disabled"><span
-          id="time" style="color: red"></span></span>
+          onclick="sendCheck(time())"><input
+          class="position-absolute" type="button" value="获取验证码"
+          id="emailBt"></span>
       </div>
       <input id="status" type="hidden" value="1">
       <div class="emailcode ">
         <input placeholder="邮箱验证码" name="check" id="check" />
       </div>
       <div class="agreement">
-        <span style="margin-right: 7px;"><input type="checkbox"
-          id="box" onclick="checkBox()" /> </span><label class="pointer"
-          for="acceptFlyme" tabindex="0">我已阅读并接受</label> <a href="#"
-          target="_blank" class="linkABlue">《mlnx服务协议条款》</a>
+        <div>
+          <span style="margin-right: 7px;"><input type="checkbox"
+            id="box" onclick="checkBox()" /> </span><label class="pointer"
+            for="acceptFlyme" tabindex="0">我已阅读并接受</label> <a href="#"
+            target="_blank" class="linkABlue">《mlnx服务协议条款》</a>
+        </div>
       </div>
       <div class="submit">
         <button class="btn" type="submit" id="register"
@@ -83,7 +85,7 @@
         <c:forEach items="${qrcode1 }" var="qr1">
           <img src="/docs/upload/${qr1.qrImg }" class="img-responsive"
             alt="nbmlnx_service" width="90px" align="bottom">
-          <p style="font-size:11px;margin: 12px;">${qr1.qrName }</p>
+          <p style="font-size: 11px; margin: 12px;">${qr1.qrName }</p>
         </c:forEach>
       </div>
 
@@ -91,7 +93,7 @@
         <c:forEach items="${qrcode2 }" var="qr2">
           <img src="/docs/upload/${qr2.qrImg }" class="img-responsive"
             alt="nbmlnx_service" width="90px" align="bottom">
-          <p style="font-size:11px;margin: 12px;">${qr2.qrName }</p>
+          <p style="font-size: 11px; margin: 12px;">${qr2.qrName }</p>
         </c:forEach>
       </div>
 
@@ -131,7 +133,7 @@
       <div class="col-xs-12">
         <div class="center">
           <c:forEach items="${copyright }" var="cop">
-            <p style="font-size:10px">
+            <p style="font-size: 10px">
               © 2015 Power by <a href="http://www.nbmlnx.com"
                 target="_blank">${cop.cpDetail }</a>
             </p>

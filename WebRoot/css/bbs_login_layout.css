@@ -3,11 +3,42 @@ body {
   background-color: #fff;
 }
 
+.position-relative {
+  position: relative;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+#emailBt {
+  text-align: center;
+  border: medium none;
+  outline: medium none;
+  height: 50px;
+  line-height: 50px;
+  font-size: 16px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+#time {
+  text-align: center;
+  height: 50px;
+  line-height: 50px;
+  font-size: 16px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
 .navbar-mlnx {
   margin-top: 35px;
   background-color: #fff;
   border-color: #fff;
 }
+
 #mainform {
   width: 343px;
   margin: 100px auto;
@@ -16,9 +47,15 @@ body {
 
 #mainform>div>input {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   height: 50px;
   font-size: 16px;
+}
+
+#mainform>div>span {
+  display: block;
+  margin-bottom: 10px;
+  margin-left: 0px;
 }
 
 .btn {
@@ -43,6 +80,6 @@ body {
   border-top: 1px solid #E5E6E7;
 }
 
-.center{
-  text-align:center;
+.center {
+  text-align: center;
 }

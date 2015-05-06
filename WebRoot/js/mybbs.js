@@ -199,7 +199,6 @@ function signIn(uId) {
 function sendCheck() {
 	document.getElementById("status").value = "0";
 	document.getElementById("emailBt").setAttribute("disabled", "disabled");
-
 	var email = document.getElementById("uEmail").value;
 	$.ajax({
 		type : "post",// 请求方式
@@ -222,13 +221,12 @@ function sendCheck() {
 var s = 60;
 function time() {
 	s--;
-	document.getElementById("time").innerHTML = "(" + s + ")";
+	document.getElementById("emailBt").value = "获取验证码" + "(" + s + ")";
 	var t = setTimeout('time()', 1000);
 	if (s <= 0) {
 		s = 60;
 		document.getElementById("status").value = "1";
 		document.getElementById("emailBt").removeAttribute("disabled");
-		document.getElementById("time").innerHTML = "";
 		clearTimeout(t);
 	}
 
@@ -323,7 +321,7 @@ function checkBox() {
 function doRegister(name) {
 	var cookie;
 	var arrstr = document.cookie.split("; ");
-	for ( var i = 0; i < arrstr.length; i++) {
+	for (var i = 0; i < arrstr.length; i++) {
 		var temp = arrstr[i].split("=");
 		if (temp[0] == name) {
 			cookie = unescape(temp[1]);
