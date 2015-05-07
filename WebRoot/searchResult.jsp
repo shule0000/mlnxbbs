@@ -76,9 +76,8 @@
             style="border: 0px" id="key"> <span
             class="input-group-addon"
             style="border: 0px; background-color: #fff;"><a
-            onclick="saveKey()" href="bbs!doSearch.action"
-            target="_blank"><img src="images/search.ico"
-              height="20px;" /></a></span>
+            style="cursor: pointer;" onclick="querySearchPost2('1')"><img
+              src="images/search.ico" height="20px;" /></a></span>
         </div>
       </form>
 
@@ -89,36 +88,69 @@
 
     <div class="row">
 
-      <div id="bbs_Carousel" class="carousel slide col-sm-9">
-        <!-- 轮播（Carousel）指标 -->
-        <ol class="carousel-indicators">
-          <li data-target="#bbs_Carousel" data-slide-to="0"
-            class="active"></li>
-          <li data-target="#bbs_Carousel" data-slide-to="1"></li>
-          <li data-target="#bbs_Carousel" data-slide-to="2"></li>
-        </ol>
-        <!-- 轮播（Carousel）项目 -->
-        <div class="carousel-inner">
-          <c:forEach items="${banners }" var="ban" varStatus="i">
-            <c:if test="${i.index==0 }">
-              <div class="item active">
-                <img src="/docs/upload/${ban.banImg }" alt="First slide"
-                  style="height: 300px; width: 100%;">
+      <div class="col-sm-9">
+        <div id="showPost">
+          <c:if test="${existPost==0 }">无相关查询结果！</c:if>
+          <c:if test="${existPost==1 }">
+            <c:forEach items="${posts }" var="pos">
+              <div class="bg-white"
+                style="height: 200px; margin-top: 15px;">
+                ${pos[0].replaceAll(sessionScope.key,
+                sessionScope.replace) }
+                作者：${pos[1].uagname.replaceAll(sessionScope.key,
+                sessionScope.replace) }
+                （${pos[1].uname.replaceAll(sessionScope.key,
+                sessionScope.replace) }） 发帖时间：
+                <c:set var="time" value="${pos[2] }"></c:set>
+                ${time.replaceAll(sessionScope.key,
+                sessionScope.replace) } 点赞数：${pos[3] } <a
+                  href="bbs!showPostContent.action?poId=${pos[5] }"
+                  target="_blank">${pos[4] }</a>
               </div>
-            </c:if>
-            <c:if test="${i.index==1 }">
-              <div class="item">
-                <img src="/docs/upload/${ban.banImg }"
-                  alt="Second slide" style="height: 300px; width: 100%;">
-              </div>
-            </c:if>
-            <c:if test="${i.index==2 }">
-              <div class="item">
-                <img src="/docs/upload/${ban.banImg }" alt="Third slide"
-                  style="height: 300px; width: 100%;">
-              </div>
-            </c:if>
-          </c:forEach>
+            </c:forEach>
+            <div align="center" style="margin-top: 15px">
+
+              <a style="cursor: pointer; text-decoration: none;"
+                onclick="querySearchPost('1')">首页</a> &emsp;
+
+              <c:if test="${pb.totalPageCount<=5 }">
+                <c:set var="i" value="1"></c:set>
+                <c:forEach begin="0" end="${pb.totalPageCount-1 }">
+                  <c:if test="${i==1 }">
+                    <span style="color: gray">${i }</span>
+                    &emsp;
+                  </c:if>
+                  <c:if test="${i!=1 }">
+                    <a
+                      style="cursor: pointer;
+                    text-decoration: none;"
+                      onclick="querySearchPost(${i })">${i }</a>
+                    &emsp;
+                  </c:if>
+                  <c:set var="i" value="${i+1}"></c:set>
+                </c:forEach>
+              </c:if>
+              <c:if test="${pb.totalPageCount>5 }">
+                <c:set var="i" value="1"></c:set>
+                <c:forEach begin="0" end="4">
+                  <c:if test="${i==1 }">
+                    <span style="color: gray">${i }</span>
+                    &emsp;
+                  </c:if>
+                  <c:if test="${i!=1 }">
+                    <a id="c${i }"
+                      style="cursor: pointer;
+                    text-decoration: none; color:"
+                      onclick="querySearchPost(${i })">${i }</a>
+                    &emsp;
+                  </c:if>
+                  <c:set var="i" value="${i+1}"></c:set>
+                </c:forEach>
+              </c:if>
+              <a style="cursor: pointer; text-decoration: none;"
+                onclick="querySearchPost(${pb.totalPageCount})">末页</a>
+            </div>
+          </c:if>
         </div>
       </div>
 
@@ -155,80 +187,7 @@
           </div>
         </div>
         <div class="bg-white" style="height: 185px;">热门板块</div>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-sm-9">
-        <div>
-          <c:forEach items="${topPosts }" var="tps">
-            <div class="bg-white"
-              style="height: 200px; margin-top: 15px;">
-              置顶帖----${tps[0] } 作者：${tps[1].uagname }（${tps[1].uname }）
-              发帖时间：
-              <f:formatDate value="${tps[2] }" pattern="yy-MM-dd HH:mm"></f:formatDate>
-              点赞数：${tps[3] } <a
-                href="bbs!showPostContent.action?poId=${tps[5] }"
-                target="_blank">${tps[4] }</a>
-            </div>
-          </c:forEach>
-        </div>
-        <div id="showPost">
-          <c:forEach items="${posts }" var="pos">
-            <div class="bg-white"
-              style="height: 200px; margin-top: 15px;">
-              ${pos[0] } 作者：${pos[1].uagname }（${pos[1].uname }） 发帖时间：
-              <f:formatDate value="${pos[2] }" pattern="yy-MM-dd HH:mm"></f:formatDate>
-              点赞数：${pos[3] } <a
-                href="bbs!showPostContent.action?poId=${pos[5] }"
-                target="_blank">${pos[4] }</a>
-            </div>
-          </c:forEach>
-          <div align="center" style="margin-top: 15px">
-
-            <a style="cursor: pointer; text-decoration: none;"
-              onclick="queryPost('1')">首页</a> &emsp;
-
-            <c:if test="${pb.totalPageCount<=5 }">
-              <c:set var="i" value="1"></c:set>
-              <c:forEach begin="0" end="${pb.totalPageCount-1 }">
-                <c:if test="${i==1 }">
-                  <span style="color: gray">${i }</span>
-                  &emsp;
-                </c:if>
-                <c:if test="${i!=1 }">
-                  <a
-                    style="cursor: pointer;
-                    text-decoration: none;"
-                    onclick="queryPost(${i })">${i }</a>
-                  &emsp;
-                </c:if>
-                <c:set var="i" value="${i+1}"></c:set>
-              </c:forEach>
-            </c:if>
-            <c:if test="${pb.totalPageCount>5 }">
-              <c:set var="i" value="1"></c:set>
-              <c:forEach begin="0" end="4">
-                <c:if test="${i==1 }">
-                  <span style="color: gray">${i }</span>
-                  &emsp;
-                </c:if>
-                <c:if test="${i!=1 }">
-                  <a id="c${i }"
-                    style="cursor: pointer;
-                    text-decoration: none; color:"
-                    onclick="queryPost(${i })">${i }</a>
-                  &emsp;
-                </c:if>
-                <c:set var="i" value="${i+1}"></c:set>
-              </c:forEach>
-            </c:if>
-            <a style="cursor: pointer; text-decoration: none;"
-              onclick="queryPost(${pb.totalPageCount})">末页</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-3">
         <div class="bg-white" style="height: 600px; margin-top: 15px;">
           最新活动:<br />
           <c:forEach items="${topEvents }" var="tpe">

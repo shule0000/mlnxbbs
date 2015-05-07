@@ -692,4 +692,111 @@ public class BBSAction extends BaseAction {
 		request.setAttribute("childResponses", childResponses);
 		this.forward("postContent.jsp");
 	}
+
+	public void doSearch() {
+		// 显示当前日期
+		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd EEEE");// 设置日期格式
+		String date = df.format(new Date());// new Date()为获取当前系统时间
+		request.setAttribute("date", date);
+
+		// 显示logo
+		@SuppressWarnings("rawtypes")
+		SortedMap[] headers = headerService.executeQuery(
+				"select * from header where headerStatus = ?", new Object[]{1});
+		request.setAttribute("headers", headers);
+
+		// 显示论坛导航栏菜单
+		@SuppressWarnings("rawtypes")
+		SortedMap[] BBSNavs = navigationService
+				.executeQuery(
+						"select * from navigation where navStatus = ? and navType = ? order by navPriority desc",
+						new Object[]{1, 2});
+		request.setAttribute("BBSNavs", BBSNavs);
+
+		// 显示banner
+		@SuppressWarnings("rawtypes")
+		SortedMap[] banners = bannerService
+				.executeQuery(
+						"select * from banner where banStatus = ? order by banPriority desc limit ?, ?",
+						new Object[]{1, 0, 3});
+		request.setAttribute("banners", banners);
+
+		// 显示二维码
+		// 第一显示位置
+		@SuppressWarnings("rawtypes")
+		SortedMap[] qrcode1 = qrcodeService.executeQuery(
+				"select * from qrcode where qrPosition = ? and qrStatus = ?",
+				new Object[]{1, 1});
+		request.setAttribute("qrcode1", qrcode1);
+
+		// 第二显示位置
+		@SuppressWarnings("rawtypes")
+		SortedMap[] qrcode2 = qrcodeService.executeQuery(
+				"select * from qrcode where qrPosition = ? and qrStatus = ?",
+				new Object[]{2, 1});
+		request.setAttribute("qrcode2", qrcode2);
+
+		// 显示联系信息
+		@SuppressWarnings("rawtypes")
+		SortedMap[] contact = contactService.executeQuery(
+				"select * from contact where ctStatus = ?", new Object[]{1});
+		request.setAttribute("contact", contact);
+
+		// 显示版权信息
+		@SuppressWarnings("rawtypes")
+		SortedMap[] copyright = copyrightService.executeQuery(
+				"select * from copyright where cpStatus = ?", new Object[]{1});
+		request.setAttribute("copyright", copyright);
+
+		// 分页显示查询结果
+		final int iCurrentPageNum = 1;
+		PageBean pb = new PageBean();
+		pb.setCurrentPageNum(iCurrentPageNum);
+		String sql1 = "select * from post where poTitle like ? or authorId in (select uId from user where uName like ? or uAgname like ?) or poTime like ? order by poTime desc";
+		Object[] params = new Object[]{"%" + session.getAttribute("key") + "%",
+				"%" + session.getAttribute("key") + "%",
+				"%" + session.getAttribute("key") + "%",
+				"%" + session.getAttribute("key") + "%"};
+		@SuppressWarnings("rawtypes")
+		SortedMap[] sm = pageService.execQueryByPage(sql1, params, pb);
+		if (sm.length > 0) {
+			request.setAttribute("existPost", "1");
+		} else {
+			request.setAttribute("existPost", "0");
+		}
+		List<List<Object>> posts = new ArrayList<List<Object>>();
+		for (int i = 0; i < sm.length; i++) {
+			Object[] every = sm[i].values().toArray();
+			List<Object> list = new ArrayList<Object>();
+			User author = userService.findById((int) every[0]);
+			list.add(every[7]);
+			list.add(author);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			list.add(sdf.format(every[6]));
+			list.add(every[4]);
+			if (every[2].toString().replaceAll("<.*?>", "").length() > 30) {
+				list.add(every[2].toString().replaceAll("<.*?>", "")
+						.substring(0, 30)
+						+ "……");
+			} else {
+				list.add(every[2].toString().replaceAll("<.*?>", ""));
+			}
+			list.add(every[3]);
+			posts.add(list);
+		}
+		request.setAttribute("pb", pb);
+		request.setAttribute("posts", posts);
+
+		// 显示主要的五条活动
+		@SuppressWarnings("rawtypes")
+		SortedMap[] topEvents = eventService
+				.executeQuery(
+						"select * from event where estatus = ? order by epriority desc limit ?, ?",
+						new Object[]{1, 0, 5});
+		request.setAttribute("topEvents", topEvents);
+
+		session.setAttribute("replace", "<span style='color: red'><b>"
+				+ session.getAttribute("key") + "</b></span>");
+		this.forward("searchResult.jsp");
+	}
 }

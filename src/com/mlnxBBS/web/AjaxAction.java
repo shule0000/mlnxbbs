@@ -472,4 +472,56 @@ public class AjaxAction extends BaseAction {
 		post.setPoPraise(post.getPoPraise() + 1);
 		postService.updateObject(post);
 	}
+
+	public String key;
+	public void saveKey() {
+		session.setAttribute("key", key);
+	}
+
+	/**
+	 * 分页显示查询帖子
+	 */
+	public int page3;
+	public void querySearchPost() {
+		PageBean pb = new PageBean();
+		pb.setCurrentPageNum(page3);
+		String sql1 = "select * from post where poTitle like ? or authorId in (select uId from user where uName like ? or uAgname like ?) or poTime like ? order by poTime desc";
+		Object[] params = new Object[]{"%" + session.getAttribute("key") + "%",
+				"%" + session.getAttribute("key") + "%",
+				"%" + session.getAttribute("key") + "%",
+				"%" + session.getAttribute("key") + "%"};
+		@SuppressWarnings("rawtypes")
+		SortedMap[] sm = pageService.execQueryByPage(sql1, params, pb);
+		if (sm.length > 0) {
+			request.setAttribute("existPost", "1");
+		} else {
+			request.setAttribute("existPost", "0");
+		}
+		List<List<Object>> posts = new ArrayList<List<Object>>();
+		for (int i = 0; i < sm.length; i++) {
+			Object[] every = sm[i].values().toArray();
+			List<Object> list = new ArrayList<Object>();
+			User author = userService.findById((int) every[0]);
+			list.add(every[7]);
+			list.add(author);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			list.add(sdf.format(every[6]));
+			list.add(every[4]);
+			if (every[2].toString().replaceAll("<.*?>", "").length() > 30) {
+				list.add(every[2].toString().replaceAll("<.*?>", "")
+						.substring(0, 30)
+						+ "……");
+			} else {
+				list.add(every[2].toString().replaceAll("<.*?>", ""));
+			}
+			list.add(every[3]);
+			posts.add(list);
+		}
+		request.setAttribute("pb", pb);
+		request.setAttribute("posts", posts);
+
+		session.setAttribute("replace", "<span style='color: red'><b>"
+				+ session.getAttribute("key") + "</b></span>");
+		this.forward("showSearchResult.jsp");
+	}
 }

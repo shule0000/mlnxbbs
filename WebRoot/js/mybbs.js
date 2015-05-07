@@ -449,3 +449,62 @@ function doPraise(praiserId, toPid) {
 
 	});
 }
+
+// 记忆关键字
+function saveKey() {
+	var key = document.getElementById("key").value;
+	$.ajax({
+		type : "post",// 请求方式
+		url : "ajax!saveKey.action",// 发送请求地址
+		data : {// 发送给数据库的数据
+			key : key
+		},
+		// 请求成功后的回调函数有两个参数
+
+		success : function(data, textStatus) {
+
+		}
+
+	});
+}
+
+// 分页显示查询结果
+function querySearchPost(page) {
+	$.ajax({
+		type : "post",// 请求方式
+		url : "ajax!querySearchPost.action",// 发送请求地址
+		data : {// 发送给数据库的数据
+			page3 : page
+
+		},
+		// 请求成功后的回调函数有两个参数
+
+		success : function(data, textStatus) {
+
+			$("#showPost").html(data);
+
+		}
+
+	});
+}
+
+// 分页显示查询结果
+function querySearchPost2(page) {
+	saveKey();
+	$.ajax({
+		type : "post",// 请求方式
+		url : "ajax!querySearchPost.action",// 发送请求地址
+		data : {// 发送给数据库的数据
+			page3 : page
+
+		},
+		// 请求成功后的回调函数有两个参数
+
+		success : function(data, textStatus) {
+
+			$("#showPost").html(data);
+
+		}
+
+	});
+}

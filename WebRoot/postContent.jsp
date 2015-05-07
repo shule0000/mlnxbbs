@@ -73,9 +73,12 @@
       <form class="navbar-form navbar-right head-size hid" role="search">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Search"
-            style="border: 0px"> <span class="input-group-addon"
+            style="border: 0px" id="key"> <span
+            class="input-group-addon"
             style="border: 0px; background-color: #fff;"><a
-            href="#"><img src="images/search.ico" height="20px;" /></a></span>
+            onclick="saveKey()" href="bbs!doSearch.action"
+            target="_blank"><img src="images/search.ico"
+              height="20px;" /></a></span>
         </div>
 
       </form>
