@@ -31,6 +31,8 @@
     <mapping class="com.mlnxBBS.core.Qrcode" />
     <mapping class="com.mlnxBBS.core.Header" />
     <mapping class="com.mlnxBBS.core.Banner" />
+    <mapping class="com.mlnxBBS.core.Collection" />
+    <mapping class="com.mlnxBBS.core.Image" />
   </session-factory>
 
 </hibernate-configuration>

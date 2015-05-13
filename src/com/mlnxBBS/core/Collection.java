@@ -12,19 +12,19 @@ import javax.persistence.Table;
 
 
 /**
- * Praise entity. @author MyEclipse Persistence Tools
+ * Collection entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name="praise"
+@Table(name="collection"
     ,catalog="mlnx"
 )
 
-public class Praise  implements java.io.Serializable {
+public class Collection  implements java.io.Serializable {
 
 
     // Fields    
 
-     private Integer paId;
+     private Integer coId;
      private Post post;
      private User user;
 
@@ -32,12 +32,12 @@ public class Praise  implements java.io.Serializable {
     // Constructors
 
     /** default constructor */
-    public Praise() {
+    public Collection() {
     }
 
     
     /** full constructor */
-    public Praise(Post post, User user) {
+    public Collection(Post post, User user) {
         this.post = post;
         this.user = user;
     }
@@ -46,17 +46,17 @@ public class Praise  implements java.io.Serializable {
     // Property accessors
     @Id @GeneratedValue(strategy=IDENTITY)
     
-    @Column(name="paId", unique=true, nullable=false)
+    @Column(name="coId", unique=true, nullable=false)
 
-    public Integer getPaId() {
-        return this.paId;
+    public Integer getCoId() {
+        return this.coId;
     }
     
-    public void setPaId(Integer paId) {
-        this.paId = paId;
+    public void setCoId(Integer coId) {
+        this.coId = coId;
     }
 	@ManyToOne(fetch=FetchType.LAZY)
-        @JoinColumn(name="toPid", nullable=false)
+        @JoinColumn(name="coPoid", nullable=false)
 
     public Post getPost() {
         return this.post;
@@ -66,7 +66,7 @@ public class Praise  implements java.io.Serializable {
         this.post = post;
     }
 	@ManyToOne(fetch=FetchType.LAZY)
-        @JoinColumn(name="praiserId", nullable=false)
+        @JoinColumn(name="coUid", nullable=false)
 
     public User getUser() {
         return this.user;

@@ -8,26 +8,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- 	* A data access object (DAO) providing persistence and search support for Banner entities.
+ 	* A data access object (DAO) providing persistence and search support for Collection entities.
  			* Transaction control of the save(), update() and delete() operations 
 		can directly support Spring container-managed transactions or they can be augmented	to handle user-managed Spring transactions. 
 		Each of these methods provides additional information for how to configure it for the desired type of transaction control. 	
-	 * @see com.mlnxBBS.core.Banner
+	 * @see com.mlnxBBS.core.Collection
   * @author MyEclipse Persistence Tools 
  */
-public class BannerDAO extends BaseHibernateDAO  {
-	     private static final Logger log = LoggerFactory.getLogger(BannerDAO.class);
+public class CollectionDAO extends BaseHibernateDAO  {
+	     private static final Logger log = LoggerFactory.getLogger(CollectionDAO.class);
 		//property constants
-	public static final String BAN_IMG = "banImg";
-	public static final String BAN_SIZE = "banSize";
-	public static final String BAN_PRIORITY = "banPriority";
-	public static final String BAN_STATUS = "banStatus";
 
 
 
     
-    public void save(Banner transientInstance) {
-        log.debug("saving Banner instance");
+    public void save(Collection transientInstance) {
+        log.debug("saving Collection instance");
         try {
             getSession().save(transientInstance);
             log.debug("save successful");
@@ -37,8 +33,8 @@ public class BannerDAO extends BaseHibernateDAO  {
         }
     }
     
-	public void delete(Banner persistentInstance) {
-        log.debug("deleting Banner instance");
+	public void delete(Collection persistentInstance) {
+        log.debug("deleting Collection instance");
         try {
             getSession().delete(persistentInstance);
             log.debug("delete successful");
@@ -48,11 +44,11 @@ public class BannerDAO extends BaseHibernateDAO  {
         }
     }
     
-    public Banner findById( java.lang.Integer id) {
-        log.debug("getting Banner instance with id: " + id);
+    public Collection findById( java.lang.Integer id) {
+        log.debug("getting Collection instance with id: " + id);
         try {
-            Banner instance = (Banner) getSession()
-                    .get("com.mlnxBBS.core.Banner", id);
+            Collection instance = (Collection) getSession()
+                    .get("com.mlnxBBS.core.Collection", id);
             return instance;
         } catch (RuntimeException re) {
             log.error("get failed", re);
@@ -61,11 +57,11 @@ public class BannerDAO extends BaseHibernateDAO  {
     }
     
     
-    public List<Banner> findByExample(Banner instance) {
-        log.debug("finding Banner instance by example");
+    public List<Collection> findByExample(Collection instance) {
+        log.debug("finding Collection instance by example");
         try {
-            List<Banner> results = (List<Banner>) getSession()
-                    .createCriteria("com.mlnxBBS.core.Banner")
+            List<Collection> results = (List<Collection>) getSession()
+                    .createCriteria("com.mlnxBBS.core.Collection")
                     .add( create(instance) )
             .list();
             log.debug("find by example successful, result size: " + results.size());
@@ -77,10 +73,10 @@ public class BannerDAO extends BaseHibernateDAO  {
     }    
     
     public List findByProperty(String propertyName, Object value) {
-      log.debug("finding Banner instance with property: " + propertyName
+      log.debug("finding Collection instance with property: " + propertyName
             + ", value: " + value);
       try {
-         String queryString = "from Banner as model where model." 
+         String queryString = "from Collection as model where model." 
          						+ propertyName + "= ?";
          Query queryObject = getSession().createQuery(queryString);
 		 queryObject.setParameter(0, value);
@@ -91,35 +87,11 @@ public class BannerDAO extends BaseHibernateDAO  {
       }
 	}
 
-	public List<Banner> findByBanImg(Object banImg
-	) {
-		return findByProperty(BAN_IMG, banImg
-		);
-	}
-	
-	public List<Banner> findByBanSize(Object banSize
-	) {
-		return findByProperty(BAN_SIZE, banSize
-		);
-	}
-	
-	public List<Banner> findByBanPriority(Object banPriority
-	) {
-		return findByProperty(BAN_PRIORITY, banPriority
-		);
-	}
-	
-	public List<Banner> findByBanStatus(Object banStatus
-	) {
-		return findByProperty(BAN_STATUS, banStatus
-		);
-	}
-	
 
 	public List findAll() {
-		log.debug("finding all Banner instances");
+		log.debug("finding all Collection instances");
 		try {
-			String queryString = "from Banner";
+			String queryString = "from Collection";
 	         Query queryObject = getSession().createQuery(queryString);
 			 return queryObject.list();
 		} catch (RuntimeException re) {
@@ -128,10 +100,10 @@ public class BannerDAO extends BaseHibernateDAO  {
 		}
 	}
 	
-    public Banner merge(Banner detachedInstance) {
-        log.debug("merging Banner instance");
+    public Collection merge(Collection detachedInstance) {
+        log.debug("merging Collection instance");
         try {
-            Banner result = (Banner) getSession()
+            Collection result = (Collection) getSession()
                     .merge(detachedInstance);
             log.debug("merge successful");
             return result;
@@ -141,8 +113,8 @@ public class BannerDAO extends BaseHibernateDAO  {
         }
     }
 
-    public void attachDirty(Banner instance) {
-        log.debug("attaching dirty Banner instance");
+    public void attachDirty(Collection instance) {
+        log.debug("attaching dirty Collection instance");
         try {
             getSession().saveOrUpdate(instance);
             log.debug("attach successful");
@@ -152,8 +124,8 @@ public class BannerDAO extends BaseHibernateDAO  {
         }
     }
     
-    public void attachClean(Banner instance) {
-        log.debug("attaching clean Banner instance");
+    public void attachClean(Collection instance) {
+        log.debug("attaching clean Collection instance");
         try {
                       	getSession().buildLockRequest(LockOptions.NONE).lock(instance);
           	            log.debug("attach successful");

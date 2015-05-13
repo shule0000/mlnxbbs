@@ -118,29 +118,61 @@
                     class="post-content-btn">
                     <i class="fa fa-thumbs-up"></i>赞
                   </button></a>
+                <a href="bbs!showBBSLogin.action" id="do_reward"
+                  class="hasreward"><button class="post-content-btn">
+                    <i class="fa fa-database"></i>打赏
+                  </button></a>
+                <a href="bbs!showBBSLogin.action" id="do_favorite"
+                  class="hasfavorite"><button
+                    class="post-content-btn">
+                    <i class="fa fa-star"></i>收藏
+                  </button></a>
               </c:if>
+
               <c:if test="${praise==1 }">
                 <a id="do_praise" class="haspraised"><button
                     class="post-content-btn" id="doPraise"
                     onclick="doPraise('${sessionScope.uId }', '${post.poId }')">
                     <i class="fa fa-thumbs-up"></i>赞
                   </button></a>
+                <a id="do_reward"
+                  onclick="doReward('${sessionScope.uId }', '${post.user.uid }')"
+                  class="hasreward"><button class="post-content-btn">
+                    <i class="fa fa-database"></i>打赏
+                  </button></a>
               </c:if>
-              <c:if test="${praise==2 }">
 
+              <c:if test="${praise==2 }">
                 <a id="do_praise" class="haspraised"><button
                     class="post-content-btn" disabled="disabled">
                     <i class="fa fa-thumbs-up"></i>已赞
                   </button></a>
-
+                <a id="do_reward"
+                  onclick="doReward('${sessionScope.uId }', '${post.user.uid }')"
+                  class="hasreward"><button class="post-content-btn">
+                    <i class="fa fa-database"></i>打赏
+                  </button></a>
               </c:if>
-              <a href="javascript:;" id="do_reward" class="hasreward"><button
-                  class="post-content-btn">
-                  <i class="fa fa-database"></i>打赏
-                </button></a> <a href="javascript:;" id="do_favorite"
-                class="hasfavorite"><button class="post-content-btn">
-                  <i class="fa fa-star"></i>收藏
-                </button></a>
+
+              <c:if test="${collection==1 }">
+                <a id="do_favorite"
+                  onclick="doCollection('${sessionScope.uId }', '${post.poId}')"
+                  class="hasfavorite"><button id="doCollection"
+                    class="post-content-btn">
+                    <i class="fa fa-star"></i>收藏
+                  </button></a>
+              </c:if>
+
+              <c:if test="${collection==2 }">
+                <a id="do_favorite" class="hasfavorite"><button
+                    class="post-content-btn" disabled="disabled">
+                    <i class="fa fa-star"></i>已收藏
+                  </button></a>
+              </c:if>
+
+            </div>
+            <div>
+              <span style="color: red" id="rewardPro" hidden="hidden"></span>
             </div>
           </div>
           <div>

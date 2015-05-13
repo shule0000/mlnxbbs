@@ -7,59 +7,78 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
 /**
  * Copyright entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "copyright", catalog = "mlnx")
-public class Copyright implements java.io.Serializable {
+@Table(name="copyright"
+    ,catalog="mlnx"
+)
 
-	// Fields
+public class Copyright  implements java.io.Serializable {
 
-	private Integer cpId;
-	private String cpDetail;
-	private Integer cpStatus;
 
-	// Constructors
+    // Fields    
 
-	/** default constructor */
-	public Copyright() {
-	}
+     private Integer cpId;
+     private String cpDetail;
+     private Integer cpStatus;
 
-	/** full constructor */
-	public Copyright(String cpDetail, Integer cpStatus) {
-		this.cpDetail = cpDetail;
-		this.cpStatus = cpStatus;
-	}
 
-	// Property accessors
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "cpId", unique = true, nullable = false)
-	public Integer getCpId() {
-		return this.cpId;
-	}
+    // Constructors
 
-	public void setCpId(Integer cpId) {
-		this.cpId = cpId;
-	}
+    /** default constructor */
+    public Copyright() {
+    }
 
-	@Column(name = "cpDetail", nullable = false, length = 2000)
-	public String getCpDetail() {
-		return this.cpDetail;
-	}
+    
+    /** full constructor */
+    public Copyright(String cpDetail, Integer cpStatus) {
+        this.cpDetail = cpDetail;
+        this.cpStatus = cpStatus;
+    }
 
-	public void setCpDetail(String cpDetail) {
-		this.cpDetail = cpDetail;
-	}
+   
+    // Property accessors
+    @Id @GeneratedValue(strategy=IDENTITY)
+    
+    @Column(name="cpId", unique=true, nullable=false)
 
-	@Column(name = "cpStatus", nullable = false)
-	public Integer getCpStatus() {
-		return this.cpStatus;
-	}
+    public Integer getCpId() {
+        return this.cpId;
+    }
+    
+    public void setCpId(Integer cpId) {
+        this.cpId = cpId;
+    }
+    
+    @Column(name="cpDetail", nullable=false, length=2000)
 
-	public void setCpStatus(Integer cpStatus) {
-		this.cpStatus = cpStatus;
-	}
+    public String getCpDetail() {
+        return this.cpDetail;
+    }
+    
+    public void setCpDetail(String cpDetail) {
+        this.cpDetail = cpDetail;
+    }
+    
+    @Column(name="cpStatus", nullable=false)
+
+    public Integer getCpStatus() {
+        return this.cpStatus;
+    }
+    
+    public void setCpStatus(Integer cpStatus) {
+        this.cpStatus = cpStatus;
+    }
+   
+
+
+
+
+
+
+
 
 }

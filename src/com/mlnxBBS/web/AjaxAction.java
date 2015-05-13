@@ -15,11 +15,13 @@ import javax.servlet.http.Cookie;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.mlnxBBS.core.Collection;
 import com.mlnxBBS.core.PageBean;
 import com.mlnxBBS.core.Post;
 import com.mlnxBBS.core.Praise;
 import com.mlnxBBS.core.Response;
 import com.mlnxBBS.core.User;
+import com.mlnxBBS.service.CollectionService;
 import com.mlnxBBS.service.PageService;
 import com.mlnxBBS.service.PostService;
 import com.mlnxBBS.service.PraiseService;
@@ -35,6 +37,7 @@ public class AjaxAction extends BaseAction {
 	ResponseService responseService = new ResponseService();
 	PostService postService = new PostService();
 	PraiseService praiseService = new PraiseService();
+	CollectionService collectionService = new CollectionService();
 
 	/**
 	 * 主页分页查找帖子并显示
@@ -473,6 +476,46 @@ public class AjaxAction extends BaseAction {
 		postService.updateObject(post);
 	}
 
+	/**
+	 * 收藏帖子
+	 */
+	public int coUid;
+	public int coPoid;
+	public void doCollection() {
+		Collection coll = new Collection();
+		coll.setUser(userService.findById(coUid));
+		coll.setPost(postService.findById(coPoid));
+		collectionService.save(coll);
+
+	}
+
+	/**
+	 * 打赏帖子作者
+	 */
+	public int doerId;
+	public int rewardId;
+	public void doReward() throws IOException {
+		System.out.println(doerId);
+		System.out.println(rewardId);
+		PrintWriter out = ServletActionContext.getResponse().getWriter();
+
+		User doer = userService.findById(doerId);
+		if (doer.getUscore() >= 10) {
+			User author = userService.findById(rewardId);
+			doer.setUscore(doer.getUscore() - 10);
+			author.setUscore(author.getUscore() + 10);
+			userService.updateObject(doer);
+			userService.updateObject(author);
+			out.print(doer.getUscore());
+		} else {
+			out.print("-1");
+		}
+
+	}
+
+	/**
+	 * 保存搜索关键字
+	 */
 	public String key;
 	public void saveKey() {
 		session.setAttribute("key", key);

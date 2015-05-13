@@ -7,82 +7,102 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
 /**
  * Navigation entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "navigation", catalog = "mlnx")
-public class Navigation implements java.io.Serializable {
+@Table(name="navigation"
+    ,catalog="mlnx"
+)
 
-	// Fields
+public class Navigation  implements java.io.Serializable {
 
-	private Integer nid;
-	private String navName;
-	private Integer navPriority;
-	private Integer navType;
-	private Integer navStatus;
 
-	// Constructors
+    // Fields    
 
-	/** default constructor */
-	public Navigation() {
-	}
+     private Integer nid;
+     private String navName;
+     private Integer navPriority;
+     private Integer navType;
+     private Integer navStatus;
 
-	/** full constructor */
-	public Navigation(String navName, Integer navPriority, Integer navType,
-			Integer navStatus) {
-		this.navName = navName;
-		this.navPriority = navPriority;
-		this.navType = navType;
-		this.navStatus = navStatus;
-	}
 
-	// Property accessors
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "nId", unique = true, nullable = false)
-	public Integer getNid() {
-		return this.nid;
-	}
+    // Constructors
 
-	public void setNid(Integer nid) {
-		this.nid = nid;
-	}
+    /** default constructor */
+    public Navigation() {
+    }
 
-	@Column(name = "navName", nullable = false, length = 50)
-	public String getNavName() {
-		return this.navName;
-	}
+    
+    /** full constructor */
+    public Navigation(String navName, Integer navPriority, Integer navType, Integer navStatus) {
+        this.navName = navName;
+        this.navPriority = navPriority;
+        this.navType = navType;
+        this.navStatus = navStatus;
+    }
 
-	public void setNavName(String navName) {
-		this.navName = navName;
-	}
+   
+    // Property accessors
+    @Id @GeneratedValue(strategy=IDENTITY)
+    
+    @Column(name="nId", unique=true, nullable=false)
 
-	@Column(name = "navPriority", nullable = false)
-	public Integer getNavPriority() {
-		return this.navPriority;
-	}
+    public Integer getNid() {
+        return this.nid;
+    }
+    
+    public void setNid(Integer nid) {
+        this.nid = nid;
+    }
+    
+    @Column(name="navName", nullable=false, length=300)
 
-	public void setNavPriority(Integer navPriority) {
-		this.navPriority = navPriority;
-	}
+    public String getNavName() {
+        return this.navName;
+    }
+    
+    public void setNavName(String navName) {
+        this.navName = navName;
+    }
+    
+    @Column(name="navPriority", nullable=false)
 
-	@Column(name = "navType", nullable = false)
-	public Integer getNavType() {
-		return this.navType;
-	}
+    public Integer getNavPriority() {
+        return this.navPriority;
+    }
+    
+    public void setNavPriority(Integer navPriority) {
+        this.navPriority = navPriority;
+    }
+    
+    @Column(name="navType", nullable=false)
 
-	public void setNavType(Integer navType) {
-		this.navType = navType;
-	}
+    public Integer getNavType() {
+        return this.navType;
+    }
+    
+    public void setNavType(Integer navType) {
+        this.navType = navType;
+    }
+    
+    @Column(name="navStatus", nullable=false)
 
-	@Column(name = "navStatus", nullable = false)
-	public Integer getNavStatus() {
-		return this.navStatus;
-	}
+    public Integer getNavStatus() {
+        return this.navStatus;
+    }
+    
+    public void setNavStatus(Integer navStatus) {
+        this.navStatus = navStatus;
+    }
+   
 
-	public void setNavStatus(Integer navStatus) {
-		this.navStatus = navStatus;
-	}
+
+
+
+
+
+
 
 }

@@ -163,13 +163,27 @@
         <div>
           <c:forEach items="${topPosts }" var="tps">
             <div class="bg-white"
-              style="height: 200px; margin-top: 15px;">
-              置顶帖----${tps[0] } 作者：${tps[1].uagname }（${tps[1].uname }）
-              发帖时间：
-              <f:formatDate value="${tps[2] }" pattern="yy-MM-dd HH:mm"></f:formatDate>
-              点赞数：${tps[3] } <a
-                href="bbs!showPostContent.action?poId=${tps[5] }"
-                target="_blank">${tps[4] }</a>
+              style="height: 220px; margin-top: 15px;">
+              <div class="col-sm-5">
+                <img src="/docs/upload/${tps[1].uicon}"
+                  style="height: 220px;">
+              </div>
+              <div class="col-sm-7">
+                <div class="post-title">
+                  <span style="color: red">[置顶]</span> ${tps[0] }
+                </div>
+                <div class="post-header">
+                  作者：${tps[1].uagname }（${tps[1].uname }） 发帖时间：
+                  <f:formatDate value="${tps[2] }"
+                    pattern="yy-MM-dd HH:mm"></f:formatDate>
+                  点赞数：${tps[3] }
+                </div>
+                <div class="post-body">${tps[4] }</div>
+                <div class="post-more">
+                  <a href="bbs!showPostContent.action?poId=${tps[5] }"
+                    target="_blank">阅读更多>></a>
+                </div>
+              </div>
             </div>
           </c:forEach>
         </div>

@@ -450,6 +450,55 @@ function doPraise(praiserId, toPid) {
 	});
 }
 
+// 打赏
+function doReward(doerId, rewardId) {
+	$.ajax({
+		type : "post",// 请求方式
+		url : "ajax!doReward.action",// 发送请求地址
+		data : {// 发送给数据库的数据
+			doerId : doerId,
+			rewardId : rewardId
+		},
+		// 请求成功后的回调函数有两个参数
+
+		success : function(data, textStatus) {
+			if (data == "-1") {
+				$("#rewardPro").html("抱歉！您的积分不足");
+				$("#rewardPro").fadeIn(1000, function() {
+					$("#rewardPro").fadeOut(2000);
+				});
+
+			} else {
+				$("#rewardPro").html("打赏成功！当前剩余积分" + data);
+				$("#rewardPro").fadeIn(1000, function() {
+					$("#rewardPro").fadeOut(2000);
+				});
+			}
+		}
+
+	});
+}
+
+// 收藏帖子
+function doCollection(coUid, coPoid) {
+	document.getElementById("doCollection").innerHTML = "<i class='fa fa-star'></i>已收藏";
+	document.getElementById("doCollection").disabled = "disabled";
+	$.ajax({
+		type : "post",// 请求方式
+		url : "ajax!doCollection.action",// 发送请求地址
+		data : {// 发送给数据库的数据
+			coUid : coUid,
+			coPoid : coPoid
+		},
+		// 请求成功后的回调函数有两个参数
+
+		success : function(data, textStatus) {
+
+		}
+
+	});
+}
+
 // 记忆关键字
 function saveKey() {
 	var key = document.getElementById("key").value;
