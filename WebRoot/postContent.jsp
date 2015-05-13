@@ -114,11 +114,14 @@
             <div class="h-forum-do">
               <c:if test="${praise==0 }">
                 <a href="bbs!showBBSLogin.action" id="do_praise"
-                  class="haspraised"><i class="fa fa-thumbs-up"></i>赞</a>
+                  class="haspraised"><button
+                    class="post-content-btn">
+                    <i class="fa fa-thumbs-up"></i>赞
+                  </button></a>
               </c:if>
               <c:if test="${praise==1 }">
                 <a id="do_praise" class="haspraised"><button
-                    id="doPraise"
+                    class="post-content-btn" id="doPraise"
                     onclick="doPraise('${sessionScope.uId }', '${post.poId }')">
                     <i class="fa fa-thumbs-up"></i>赞
                   </button></a>
@@ -126,15 +129,18 @@
               <c:if test="${praise==2 }">
 
                 <a id="do_praise" class="haspraised"><button
-                    disabled="disabled">
+                    class="post-content-btn" disabled="disabled">
                     <i class="fa fa-thumbs-up"></i>已赞
                   </button></a>
 
               </c:if>
-              <a href="javascript:;" id="do_reward" class="hasreward"><i
-                class="fa fa-database"></i>打赏</a> <a href="javascript:;"
-                id="do_favorite" class="hasfavorite"><i
-                class="fa fa-star"></i>收藏</a>
+              <a href="javascript:;" id="do_reward" class="hasreward"><button
+                  class="post-content-btn">
+                  <i class="fa fa-database"></i>打赏
+                </button></a> <a href="javascript:;" id="do_favorite"
+                class="hasfavorite"><button class="post-content-btn">
+                  <i class="fa fa-star"></i>收藏
+                </button></a>
             </div>
           </div>
           <div>
@@ -190,13 +196,13 @@
                               <img
                                 src="/docs/upload/${cRsp[1].uicon
                         }"
-                                style="width:16px" />
+                                style="width: 16px" />
                               <a onclick="goLogin()"
                                 style="cursor: pointer;">${cRsp[1].uagname
                                 }</a>&emsp;To&emsp;<img
                                 src="/docs/upload/${cRsp[2].uicon
                         }"
-                                style="width:16px" />
+                                style="width: 16px" />
                               <a onclick="goLogin()"
                                 style="cursor: pointer;">${cRsp[2].uagname
                                 }</a>：${cRsp[3] }&emsp;
@@ -207,7 +213,7 @@
                               <img
                                 src="/docs/upload/${cRsp[1].uicon
                         }"
-                                style="width:16px" />
+                                style="width: 16px" />
                               <a
                                 onclick="showRspToU('${cRsp[1].uagname
                             }', '${rsp[0] }', '${post.poId }', '${cRsp[1].uid }')"
@@ -215,7 +221,7 @@
                                 }</a>&emsp;To&emsp;<img
                                 src="/docs/upload/${cRsp[2].uicon
                         }"
-                                style="width:16px" />
+                                style="width: 16px" />
                               <a
                                 onclick="showRspToU('${cRsp[2].uagname
                             }', '${rsp[0] }', '${post.poId }', '${cRsp[2].uid }')"
@@ -292,9 +298,7 @@
                     &emsp;
                   </c:if>
                   <c:if test="${i!=1 }">
-                    <a
-                      style="cursor: pointer;
-                    text-decoration: none;"
+                    <a style="cursor: pointer; text-decoration: none;"
                       onclick="queryRsp(${i })">${i }</a>
                     &emsp;
                   </c:if>
@@ -310,8 +314,7 @@
                   </c:if>
                   <c:if test="${i!=1 }">
                     <a id="c${i }"
-                      style="cursor: pointer;
-                    text-decoration: none; color:"
+                      style="cursor: pointer; text-decoration: none; color:"
                       onclick="queryRsp(${i })">${i }</a>
                     &emsp;
                   </c:if>
@@ -401,7 +404,7 @@
         <c:forEach items="${qrcode1 }" var="qr1">
           <img src="/docs/upload/${qr1.qrImg }" class="img-responsive"
             alt="nbmlnx_service" width="90px" align="bottom">
-          <p style="font-size:11px;margin: 12px;">${qr1.qrName }</p>
+          <p style="font-size: 11px; margin: 12px;">${qr1.qrName }</p>
         </c:forEach>
       </div>
 
@@ -409,7 +412,7 @@
         <c:forEach items="${qrcode2 }" var="qr2">
           <img src="/docs/upload/${qr2.qrImg }" class="img-responsive"
             alt="nbmlnx_service" width="90px" align="bottom">
-          <p style="font-size:11px;margin: 12px;">${qr2.qrName }</p>
+          <p style="font-size: 11px; margin: 12px;">${qr2.qrName }</p>
         </c:forEach>
       </div>
       <div class="col-xs-12 col-sm-3">
@@ -447,7 +450,7 @@
       <div class="col-xs-12">
         <div class="center">
           <c:forEach items="${copyright }" var="cop">
-            <p style="font-size:10px">
+            <p style="font-size: 10px">
               © 2015 Power by <a href="http://www.nbmlnx.com"
                 target="_blank">${cop.cpDetail }</a>
             </p>

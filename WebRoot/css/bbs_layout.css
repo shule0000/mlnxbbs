@@ -1,3 +1,7 @@
+* {
+  word-wrap: break-word;
+}
+
 body {
   font: 12px/1.5 Tahoma, "Microsoft Yahei", "Simsun";
   background-color: #eee;
@@ -6,6 +10,29 @@ body {
 .head-size {
   height: 70px;
   padding: 10px;
+}
+
+.post-title {
+  font-size: 18px;
+  color: #3C3C3C;
+  line-height: 30px;
+}
+
+.post-header {
+  margin-top: 15px;
+  color: #D4D4D4;
+}
+
+.post-body {
+  margin-top: 15px;
+  color: #4A4A4A;
+  line-height: 25px;
+  font-size: 14px;
+}
+
+.post-more {
+  float: right;
+  margin-top: 25px;
 }
 
 .table {
@@ -26,9 +53,10 @@ body {
   padding: 15px;
 }
 
-.center{
-  text-align:center;
+.center {
+  text-align: center;
 }
+
 @media ( max-width :931px) {
   .nav {
     display: none;
@@ -46,6 +74,7 @@ body {
     float: left;
   }
 }
+
 @media ( max-width :372px) {
   .nav {
     display: none;

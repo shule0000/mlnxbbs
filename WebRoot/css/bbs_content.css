@@ -8,6 +8,12 @@ body {
   padding: 10px;
 }
 
+.post-content-btn {
+  height: 40px;
+  width: 120px;
+  margin-left: -12px;
+}
+
 .table {
   display: table;
 }
@@ -16,35 +22,38 @@ body {
   display: table-cell;
   vertical-align: middle;
 }
-.topic{
-  
+
+.topic {
   font-family: "微软雅黑";
-color: #006FB9;
-font-size: 18px;
-font-weight: 500;
+  color: #006FB9;
+  font-size: 18px;
+  font-weight: 500;
 }
+
 .tedt {
-    width: 98%;
-    border-width: 1px;
-    border-style: solid;
-    -moz-border-top-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    border-image: none;
-    border-color: #999 #CCC #CCC #999;
+  width: 98%;
+  border-width: 1px;
+  border-style: solid;
+  -moz-border-top-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  border-image: none;
+  border-color: #999 #CCC #CCC #999;
 }
 
 .tedt .bar {
-    padding: 0px 10px 0px 0px;
-    height: 25px;
-    line-height: 25px;
-    border-bottom: 1px solid #DFDFDF;
-    background: none repeat scroll 0% 0% #F2F2F2;
+  padding: 0px 10px 0px 0px;
+  height: 25px;
+  line-height: 25px;
+  border-bottom: 1px solid #DFDFDF;
+  background: none repeat scroll 0% 0% #F2F2F2;
 }
+
 .y {
-    float: right;
+  float: right;
 }
+
 .bg-white {
   background-color: #fff;
 }
@@ -76,48 +85,53 @@ font-weight: 500;
   float: left;
   width: 50%;
 }
-.pbm{
+
+.pbm {
   border-bottom: 1px solid #CBCBCB !important;
   padding-bottom: 10px !important;
 }
 
-
 .border-bottom {
   border-bottom: 1px solid #F4F4F4;
 }
+
 .h-forum-do {
-    margin-bottom: 20px;
-    text-align: center;
+  margin-bottom: 20px;
+  text-align: center;
 }
+
 .h-forum-do a {
-    border: 1px solid #979797;
-    line-height: 40px;
-    border-radius: 4px;
-    font-size: 16px;
-    color: #9B9B9B;
-    display: inline-block;
-    width: 120px;
-    height: 40px;
-    text-indent: 10px;
-    text-decoration: none;
-    text-align: left;
-    margin-right: 20px;
+  line-height: 40px;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #9B9B9B;
+  display: inline-block;
+  width: 120px;
+  height: 40px;
+  text-indent: 10px;
+  text-decoration: none;
+  text-align: left;
+  margin-right: 20px;
 }
+
 .h-forum-do  i {
-    font-size: 18px;
+  font-size: 18px;
 }
+
 .h-forum-do  i {
-    margin-right: 20px;
+  margin-right: 20px;
 }
+
 .pob em {
-    float: right;
+  float: right;
 }
 
 .tshare {
-    padding: 0px;
-    float: left;
-    margin-top: 2px;
+  padding: 0px;
+  float: left;
+  margin-top: 2px;
 }
+
 .footer {
   margin-top: 20px;
   padding: 15px;

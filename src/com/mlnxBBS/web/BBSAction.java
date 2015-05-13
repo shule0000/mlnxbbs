@@ -126,7 +126,8 @@ public class BBSAction extends BaseAction {
 		// 显示logo
 		@SuppressWarnings("rawtypes")
 		SortedMap[] headers = headerService.executeQuery(
-				"select * from header where headerStatus = ?", new Object[]{1});
+				"select * from header where headerStatus = ?",
+				new Object[] { 1 });
 		request.setAttribute("headers", headers);
 
 		// 显示论坛导航栏菜单
@@ -134,7 +135,7 @@ public class BBSAction extends BaseAction {
 		SortedMap[] BBSNavs = navigationService
 				.executeQuery(
 						"select * from navigation where navStatus = ? and navType = ? order by navPriority desc",
-						new Object[]{1, 2});
+						new Object[] { 1, 2 });
 		request.setAttribute("BBSNavs", BBSNavs);
 
 		// 显示banner
@@ -142,7 +143,7 @@ public class BBSAction extends BaseAction {
 		SortedMap[] banners = bannerService
 				.executeQuery(
 						"select * from banner where banStatus = ? order by banPriority desc limit ?, ?",
-						new Object[]{1, 0, 3});
+						new Object[] { 1, 0, 3 });
 		request.setAttribute("banners", banners);
 
 		// 显示二维码
@@ -150,26 +151,27 @@ public class BBSAction extends BaseAction {
 		@SuppressWarnings("rawtypes")
 		SortedMap[] qrcode1 = qrcodeService.executeQuery(
 				"select * from qrcode where qrPosition = ? and qrStatus = ?",
-				new Object[]{1, 1});
+				new Object[] { 1, 1 });
 		request.setAttribute("qrcode1", qrcode1);
 
 		// 第二显示位置
 		@SuppressWarnings("rawtypes")
 		SortedMap[] qrcode2 = qrcodeService.executeQuery(
 				"select * from qrcode where qrPosition = ? and qrStatus = ?",
-				new Object[]{2, 1});
+				new Object[] { 2, 1 });
 		request.setAttribute("qrcode2", qrcode2);
 
 		// 显示联系信息
 		@SuppressWarnings("rawtypes")
 		SortedMap[] contact = contactService.executeQuery(
-				"select * from contact where ctStatus = ?", new Object[]{1});
+				"select * from contact where ctStatus = ?", new Object[] { 1 });
 		request.setAttribute("contact", contact);
 
 		// 显示版权信息
 		@SuppressWarnings("rawtypes")
 		SortedMap[] copyright = copyrightService.executeQuery(
-				"select * from copyright where cpStatus = ?", new Object[]{1});
+				"select * from copyright where cpStatus = ?",
+				new Object[] { 1 });
 		request.setAttribute("copyright", copyright);
 
 		// 显示最近的三个置顶帖子
@@ -177,7 +179,7 @@ public class BBSAction extends BaseAction {
 		SortedMap[] top = postService
 				.executeQuery(
 						"select * from post where poStatus = ? order by poTime desc limit ?, ?",
-						new Object[]{1, 0, 3});
+						new Object[] { 1, 0, 3 });
 		List<List<Object>> topPosts = new ArrayList<List<Object>>();
 		for (int i = 0; i < top.length; i++) {
 			Object[] every = top[i].values().toArray();
@@ -205,7 +207,7 @@ public class BBSAction extends BaseAction {
 		PageBean pb = new PageBean();
 		pb.setCurrentPageNum(iCurrentPageNum);
 		String sql1 = "select * from post where poStatus = ? order by poTime desc";
-		Object[] params = new Object[]{0};
+		Object[] params = new Object[] { 0 };
 		@SuppressWarnings("rawtypes")
 		SortedMap[] sm = pageService.execQueryByPage(sql1, params, pb);
 		List<List<Object>> posts = new ArrayList<List<Object>>();
@@ -217,7 +219,7 @@ public class BBSAction extends BaseAction {
 			list.add(author);
 			list.add(every[6]);
 			list.add(every[4]);
-			if (every[2].toString().replaceAll("<.*?>", "").length() > 30) {
+			if (every[2].toString().replaceAll("<.*?>", "").length() > 300) {
 				list.add(every[2].toString().replaceAll("<.*?>", "")
 						.substring(0, 30)
 						+ "……");
@@ -235,7 +237,7 @@ public class BBSAction extends BaseAction {
 		SortedMap[] topEvents = eventService
 				.executeQuery(
 						"select * from event where estatus = ? order by epriority desc limit ?, ?",
-						new Object[]{1, 0, 5});
+						new Object[] { 1, 0, 5 });
 		request.setAttribute("topEvents", topEvents);
 		this.forward("bbs.jsp");
 	}
@@ -246,6 +248,7 @@ public class BBSAction extends BaseAction {
 	 * @throws IOException
 	 */
 	public String url;
+
 	public void showBBSLogin() throws IOException {
 		session.setAttribute("url", url);
 		Cookie[] cs = request.getCookies();
@@ -313,7 +316,7 @@ public class BBSAction extends BaseAction {
 				@SuppressWarnings("rawtypes")
 				SortedMap[] headers = headerService.executeQuery(
 						"select * from header where headerStatus = ?",
-						new Object[]{1});
+						new Object[] { 1 });
 				request.setAttribute("headers", headers);
 
 				// 显示二维码
@@ -322,7 +325,7 @@ public class BBSAction extends BaseAction {
 				SortedMap[] qrcode1 = qrcodeService
 						.executeQuery(
 								"select * from qrcode where qrPosition = ? and qrStatus = ?",
-								new Object[]{1, 1});
+								new Object[] { 1, 1 });
 				request.setAttribute("qrcode1", qrcode1);
 
 				// 第二显示位置
@@ -330,21 +333,21 @@ public class BBSAction extends BaseAction {
 				SortedMap[] qrcode2 = qrcodeService
 						.executeQuery(
 								"select * from qrcode where qrPosition = ? and qrStatus = ?",
-								new Object[]{2, 1});
+								new Object[] { 2, 1 });
 				request.setAttribute("qrcode2", qrcode2);
 
 				// 显示联系信息
 				@SuppressWarnings("rawtypes")
 				SortedMap[] contact = contactService.executeQuery(
 						"select * from contact where ctStatus = ?",
-						new Object[]{1});
+						new Object[] { 1 });
 				request.setAttribute("contact", contact);
 
 				// 显示版权信息
 				@SuppressWarnings("rawtypes")
 				SortedMap[] copyright = copyrightService.executeQuery(
 						"select * from copyright where cpStatus = ?",
-						new Object[]{1});
+						new Object[] { 1 });
 				request.setAttribute("copyright", copyright);
 
 				this.forward("bbsLogin.jsp");
@@ -354,7 +357,7 @@ public class BBSAction extends BaseAction {
 			@SuppressWarnings("rawtypes")
 			SortedMap[] headers = headerService.executeQuery(
 					"select * from header where headerStatus = ?",
-					new Object[]{1});
+					new Object[] { 1 });
 			request.setAttribute("headers", headers);
 
 			// 显示二维码
@@ -363,7 +366,7 @@ public class BBSAction extends BaseAction {
 			SortedMap[] qrcode1 = qrcodeService
 					.executeQuery(
 							"select * from qrcode where qrPosition = ? and qrStatus = ?",
-							new Object[]{1, 1});
+							new Object[] { 1, 1 });
 			request.setAttribute("qrcode1", qrcode1);
 
 			// 第二显示位置
@@ -371,21 +374,21 @@ public class BBSAction extends BaseAction {
 			SortedMap[] qrcode2 = qrcodeService
 					.executeQuery(
 							"select * from qrcode where qrPosition = ? and qrStatus = ?",
-							new Object[]{2, 1});
+							new Object[] { 2, 1 });
 			request.setAttribute("qrcode2", qrcode2);
 
 			// 显示联系信息
 			@SuppressWarnings("rawtypes")
-			SortedMap[] contact = contactService
-					.executeQuery("select * from contact where ctStatus = ?",
-							new Object[]{1});
+			SortedMap[] contact = contactService.executeQuery(
+					"select * from contact where ctStatus = ?",
+					new Object[] { 1 });
 			request.setAttribute("contact", contact);
 
 			// 显示版权信息
 			@SuppressWarnings("rawtypes")
 			SortedMap[] copyright = copyrightService.executeQuery(
 					"select * from copyright where cpStatus = ?",
-					new Object[]{1});
+					new Object[] { 1 });
 			request.setAttribute("copyright", copyright);
 
 			this.forward("bbsLogin.jsp");
@@ -417,7 +420,8 @@ public class BBSAction extends BaseAction {
 		// 显示logo
 		@SuppressWarnings("rawtypes")
 		SortedMap[] headers = headerService.executeQuery(
-				"select * from header where headerStatus = ?", new Object[]{1});
+				"select * from header where headerStatus = ?",
+				new Object[] { 1 });
 		request.setAttribute("headers", headers);
 
 		// 显示二维码
@@ -425,26 +429,27 @@ public class BBSAction extends BaseAction {
 		@SuppressWarnings("rawtypes")
 		SortedMap[] qrcode1 = qrcodeService.executeQuery(
 				"select * from qrcode where qrPosition = ? and qrStatus = ?",
-				new Object[]{1, 1});
+				new Object[] { 1, 1 });
 		request.setAttribute("qrcode1", qrcode1);
 
 		// 第二显示位置
 		@SuppressWarnings("rawtypes")
 		SortedMap[] qrcode2 = qrcodeService.executeQuery(
 				"select * from qrcode where qrPosition = ? and qrStatus = ?",
-				new Object[]{2, 1});
+				new Object[] { 2, 1 });
 		request.setAttribute("qrcode2", qrcode2);
 
 		// 显示联系信息
 		@SuppressWarnings("rawtypes")
 		SortedMap[] contact = contactService.executeQuery(
-				"select * from contact where ctStatus = ?", new Object[]{1});
+				"select * from contact where ctStatus = ?", new Object[] { 1 });
 		request.setAttribute("contact", contact);
 
 		// 显示版权信息
 		@SuppressWarnings("rawtypes")
 		SortedMap[] copyright = copyrightService.executeQuery(
-				"select * from copyright where cpStatus = ?", new Object[]{1});
+				"select * from copyright where cpStatus = ?",
+				new Object[] { 1 });
 		request.setAttribute("copyright", copyright);
 
 		this.forward("bbsRegister.jsp");
@@ -458,6 +463,7 @@ public class BBSAction extends BaseAction {
 	public String uName;
 	public String uPass;
 	public String uEmail;
+
 	public void doBBSRegister() throws IOException {
 		User user = new User();
 		user.setUname(uName);
@@ -482,11 +488,13 @@ public class BBSAction extends BaseAction {
 	 * 按第一级类型查找帖子信息并显示
 	 */
 	public int type;
+
 	public void showPostAll() {
 		// 显示logo
 		@SuppressWarnings("rawtypes")
 		SortedMap[] headers = headerService.executeQuery(
-				"select * from header where headerStatus = ?", new Object[]{1});
+				"select * from header where headerStatus = ?",
+				new Object[] { 1 });
 		request.setAttribute("headers", headers);
 
 		// 显示当前日期
@@ -499,7 +507,7 @@ public class BBSAction extends BaseAction {
 		SortedMap[] BBSNavs = navigationService
 				.executeQuery(
 						"select * from navigation where navStatus = ? and navType = ? order by navPriority desc",
-						new Object[]{1, 2});
+						new Object[] { 1, 2 });
 		request.setAttribute("BBSNavs", BBSNavs);
 
 		// 显示二维码
@@ -507,26 +515,27 @@ public class BBSAction extends BaseAction {
 		@SuppressWarnings("rawtypes")
 		SortedMap[] qrcode1 = qrcodeService.executeQuery(
 				"select * from qrcode where qrPosition = ? and qrStatus = ?",
-				new Object[]{1, 1});
+				new Object[] { 1, 1 });
 		request.setAttribute("qrcode1", qrcode1);
 
 		// 第二显示位置
 		@SuppressWarnings("rawtypes")
 		SortedMap[] qrcode2 = qrcodeService.executeQuery(
 				"select * from qrcode where qrPosition = ? and qrStatus = ?",
-				new Object[]{2, 1});
+				new Object[] { 2, 1 });
 		request.setAttribute("qrcode2", qrcode2);
 
 		// 显示联系信息
 		@SuppressWarnings("rawtypes")
 		SortedMap[] contact = contactService.executeQuery(
-				"select * from contact where ctStatus = ?", new Object[]{1});
+				"select * from contact where ctStatus = ?", new Object[] { 1 });
 		request.setAttribute("contact", contact);
 
 		// 显示版权信息
 		@SuppressWarnings("rawtypes")
 		SortedMap[] copyright = copyrightService.executeQuery(
-				"select * from copyright where cpStatus = ?", new Object[]{1});
+				"select * from copyright where cpStatus = ?",
+				new Object[] { 1 });
 		request.setAttribute("copyright", copyright);
 
 		// 分页显示所有产品帖子
@@ -534,7 +543,7 @@ public class BBSAction extends BaseAction {
 		PageBean pb = new PageBean();
 		pb.setCurrentPageNum(iCurrentPageNum);
 		String sql1 = "select * from post where poType1 = ? order by poTime desc";
-		Object[] params = new Object[]{type};
+		Object[] params = new Object[] { type };
 		@SuppressWarnings("rawtypes")
 		SortedMap[] sm = pageService.execQueryByPage(sql1, params, pb);
 		List<List<Object>> posts = new ArrayList<List<Object>>();
@@ -544,7 +553,7 @@ public class BBSAction extends BaseAction {
 			User author = userService.findById((int) every[0]);
 			int rspNum = responseService.executeQuery(
 					"select * from response where toPoid = ? and toUid = ?",
-					new Object[]{every[3], 0}).length;
+					new Object[] { every[3], 0 }).length;
 			list.add(every[7]);
 			list.add(author);
 			list.add(every[6]);
@@ -581,6 +590,7 @@ public class BBSAction extends BaseAction {
 	 * 显示帖子具体内容以及评论
 	 */
 	public int poId;
+
 	public void showPostContent() {
 		// 查询是否点赞
 		if (session.getAttribute("uId") == null) {
@@ -589,7 +599,7 @@ public class BBSAction extends BaseAction {
 			@SuppressWarnings("rawtypes")
 			SortedMap[] sm = praiseService.executeQuery(
 					"select * from praise where praiserId = ? and toPid = ?",
-					new Object[]{session.getAttribute("uId"), poId});
+					new Object[] { session.getAttribute("uId"), poId });
 			if (sm.length > 0) {
 				request.setAttribute("praise", 2);
 			} else {
@@ -600,7 +610,8 @@ public class BBSAction extends BaseAction {
 		// 显示logo
 		@SuppressWarnings("rawtypes")
 		SortedMap[] headers = headerService.executeQuery(
-				"select * from header where headerStatus = ?", new Object[]{1});
+				"select * from header where headerStatus = ?",
+				new Object[] { 1 });
 		request.setAttribute("headers", headers);
 
 		// 显示论坛导航栏菜单
@@ -608,7 +619,7 @@ public class BBSAction extends BaseAction {
 		SortedMap[] BBSNavs = navigationService
 				.executeQuery(
 						"select * from navigation where navStatus = ? and navType = ? order by navPriority desc",
-						new Object[]{1, 2});
+						new Object[] { 1, 2 });
 		request.setAttribute("BBSNavs", BBSNavs);
 
 		// 显示二维码
@@ -616,26 +627,27 @@ public class BBSAction extends BaseAction {
 		@SuppressWarnings("rawtypes")
 		SortedMap[] qrcode1 = qrcodeService.executeQuery(
 				"select * from qrcode where qrPosition = ? and qrStatus = ?",
-				new Object[]{1, 1});
+				new Object[] { 1, 1 });
 		request.setAttribute("qrcode1", qrcode1);
 
 		// 第二显示位置
 		@SuppressWarnings("rawtypes")
 		SortedMap[] qrcode2 = qrcodeService.executeQuery(
 				"select * from qrcode where qrPosition = ? and qrStatus = ?",
-				new Object[]{2, 1});
+				new Object[] { 2, 1 });
 		request.setAttribute("qrcode2", qrcode2);
 
 		// 显示联系信息
 		@SuppressWarnings("rawtypes")
 		SortedMap[] contact = contactService.executeQuery(
-				"select * from contact where ctStatus = ?", new Object[]{1});
+				"select * from contact where ctStatus = ?", new Object[] { 1 });
 		request.setAttribute("contact", contact);
 
 		// 显示版权信息
 		@SuppressWarnings("rawtypes")
 		SortedMap[] copyright = copyrightService.executeQuery(
-				"select * from copyright where cpStatus = ?", new Object[]{1});
+				"select * from copyright where cpStatus = ?",
+				new Object[] { 1 });
 		request.setAttribute("copyright", copyright);
 
 		Post post = postService.findById(poId);
@@ -646,7 +658,7 @@ public class BBSAction extends BaseAction {
 		PageBean pb = new PageBean();
 		pb.setCurrentPageNum(iCurrentPageNum);
 		String sql1 = "select * from response where toPoid = ? and toUid = ? order by rpPosition desc";
-		Object[] params = new Object[]{poId, 0};
+		Object[] params = new Object[] { poId, 0 };
 		@SuppressWarnings("rawtypes")
 		SortedMap[] sm1 = pageService.execQueryByPage(sql1, params, pb);
 		List<List<Object>> responses = new ArrayList<List<Object>>();
@@ -668,14 +680,14 @@ public class BBSAction extends BaseAction {
 		@SuppressWarnings("rawtypes")
 		SortedMap[] count = responseService.executeQuery(
 				"select * from response where toPoid = ? and toUid = ?",
-				new Object[]{poId, 0});
+				new Object[] { poId, 0 });
 		@SuppressWarnings("rawtypes")
 		SortedMap[] sm2 = responseService
 				.executeQuery(
 						"select * from response where toPoid = ? and toUid > ? and rpPosition between ? and ? order by rpTime desc",
-						new Object[]{poId, 0,
+						new Object[] { poId, 0,
 								count.length - 4 > 0 ? count.length - 4 : 0,
-								count.length});
+								count.length });
 		List<List<Object>> childResponses = new ArrayList<List<Object>>();
 		for (int i = 0; i < sm2.length; i++) {
 			Object[] every = sm2[i].values().toArray();
@@ -702,7 +714,8 @@ public class BBSAction extends BaseAction {
 		// 显示logo
 		@SuppressWarnings("rawtypes")
 		SortedMap[] headers = headerService.executeQuery(
-				"select * from header where headerStatus = ?", new Object[]{1});
+				"select * from header where headerStatus = ?",
+				new Object[] { 1 });
 		request.setAttribute("headers", headers);
 
 		// 显示论坛导航栏菜单
@@ -710,7 +723,7 @@ public class BBSAction extends BaseAction {
 		SortedMap[] BBSNavs = navigationService
 				.executeQuery(
 						"select * from navigation where navStatus = ? and navType = ? order by navPriority desc",
-						new Object[]{1, 2});
+						new Object[] { 1, 2 });
 		request.setAttribute("BBSNavs", BBSNavs);
 
 		// 显示banner
@@ -718,7 +731,7 @@ public class BBSAction extends BaseAction {
 		SortedMap[] banners = bannerService
 				.executeQuery(
 						"select * from banner where banStatus = ? order by banPriority desc limit ?, ?",
-						new Object[]{1, 0, 3});
+						new Object[] { 1, 0, 3 });
 		request.setAttribute("banners", banners);
 
 		// 显示二维码
@@ -726,26 +739,27 @@ public class BBSAction extends BaseAction {
 		@SuppressWarnings("rawtypes")
 		SortedMap[] qrcode1 = qrcodeService.executeQuery(
 				"select * from qrcode where qrPosition = ? and qrStatus = ?",
-				new Object[]{1, 1});
+				new Object[] { 1, 1 });
 		request.setAttribute("qrcode1", qrcode1);
 
 		// 第二显示位置
 		@SuppressWarnings("rawtypes")
 		SortedMap[] qrcode2 = qrcodeService.executeQuery(
 				"select * from qrcode where qrPosition = ? and qrStatus = ?",
-				new Object[]{2, 1});
+				new Object[] { 2, 1 });
 		request.setAttribute("qrcode2", qrcode2);
 
 		// 显示联系信息
 		@SuppressWarnings("rawtypes")
 		SortedMap[] contact = contactService.executeQuery(
-				"select * from contact where ctStatus = ?", new Object[]{1});
+				"select * from contact where ctStatus = ?", new Object[] { 1 });
 		request.setAttribute("contact", contact);
 
 		// 显示版权信息
 		@SuppressWarnings("rawtypes")
 		SortedMap[] copyright = copyrightService.executeQuery(
-				"select * from copyright where cpStatus = ?", new Object[]{1});
+				"select * from copyright where cpStatus = ?",
+				new Object[] { 1 });
 		request.setAttribute("copyright", copyright);
 
 		// 分页显示查询结果
@@ -753,10 +767,11 @@ public class BBSAction extends BaseAction {
 		PageBean pb = new PageBean();
 		pb.setCurrentPageNum(iCurrentPageNum);
 		String sql1 = "select * from post where poTitle like ? or authorId in (select uId from user where uName like ? or uAgname like ?) or poTime like ? order by poTime desc";
-		Object[] params = new Object[]{"%" + session.getAttribute("key") + "%",
+		Object[] params = new Object[] {
 				"%" + session.getAttribute("key") + "%",
 				"%" + session.getAttribute("key") + "%",
-				"%" + session.getAttribute("key") + "%"};
+				"%" + session.getAttribute("key") + "%",
+				"%" + session.getAttribute("key") + "%" };
 		@SuppressWarnings("rawtypes")
 		SortedMap[] sm = pageService.execQueryByPage(sql1, params, pb);
 		if (sm.length > 0) {
@@ -792,7 +807,7 @@ public class BBSAction extends BaseAction {
 		SortedMap[] topEvents = eventService
 				.executeQuery(
 						"select * from event where estatus = ? order by epriority desc limit ?, ?",
-						new Object[]{1, 0, 5});
+						new Object[] { 1, 0, 5 });
 		request.setAttribute("topEvents", topEvents);
 
 		session.setAttribute("replace", "<span style='color: red'><b>"

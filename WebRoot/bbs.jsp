@@ -124,8 +124,8 @@
 
       <div class="col-sm-3">
         <div class="bg-white"
-          style=" margin-bottom: 15px; margin-top: -11px;">
-          <div class="table" style="padding:15px;">
+          style="margin-bottom: 15px; margin-top: -11px;">
+          <div class="table" style="padding: 15px;">
             <ul class="list-unstyled table-cell"
               style="text-align: center; width: 50%; padding: 25px 0px; border-right: 1px solid rgb(212, 212, 212);">
               <li>${date }</li>
@@ -136,7 +136,7 @@
                 <a href="bbs!showBBSLogin.action"><button
                     type="button" class="btn btn-primary">√&nbsp;&nbsp;&nbsp;&nbsp;签到</button></a>
                 <br>
-                <span style="display: block;margin-top:15px;">已签到0天</span>
+                <span style="display: block; margin-top: 15px;">已签到0天</span>
               </c:if>
               <c:if test="${sessionScope.uId!=null }">
                 <c:if test="${sessionScope.signInFlag }">
@@ -148,7 +148,7 @@
                     onclick="signIn(${sessionScope.uId })">√&nbsp;&nbsp;&nbsp;&nbsp;签到</button>
                 </c:if>
                 <br>
-                <span style="display: block;margin-top:15px;">已连续签到${sessionScope.runningDays
+                <span style="display: block; margin-top: 15px;">已连续签到${sessionScope.runningDays
                   }天</span>
               </c:if>
             </div>
@@ -176,12 +176,25 @@
         <div id="showPost">
           <c:forEach items="${posts }" var="pos">
             <div class="bg-white"
-              style="height: 200px; margin-top: 15px;">
-              ${pos[0] } 作者：${pos[1].uagname }（${pos[1].uname }） 发帖时间：
-              <f:formatDate value="${pos[2] }" pattern="yy-MM-dd HH:mm"></f:formatDate>
-              点赞数：${pos[3] } <a
-                href="bbs!showPostContent.action?poId=${pos[5] }"
-                target="_blank">${pos[4] }</a>
+              style="height: 220px; margin-top: 15px;">
+              <div class="col-sm-5">
+                <img src="/docs/upload/${pos[1].uicon}"
+                  style="height: 220px;">
+              </div>
+              <div class="col-sm-7">
+                <div class="post-title">${pos[0] }</div>
+                <div class="post-header">
+                  作者：${pos[1].uagname }（${pos[1].uname }） 发帖时间：
+                  <f:formatDate value="${pos[2] }"
+                    pattern="yy-MM-dd HH:mm"></f:formatDate>
+                  点赞数：${pos[3] }
+                </div>
+                <div class="post-body">${pos[4] }</div>
+                <div class="post-more">
+                  <a href="bbs!showPostContent.action?poId=${pos[5] }"
+                    target="_blank">阅读更多>></a>
+                </div>
+              </div>
             </div>
           </c:forEach>
           <div align="center" style="margin-top: 15px">
@@ -197,9 +210,7 @@
                   &emsp;
                 </c:if>
                 <c:if test="${i!=1 }">
-                  <a
-                    style="cursor: pointer;
-                    text-decoration: none;"
+                  <a style="cursor: pointer; text-decoration: none;"
                     onclick="queryPost(${i })">${i }</a>
                   &emsp;
                 </c:if>
@@ -215,8 +226,7 @@
                 </c:if>
                 <c:if test="${i!=1 }">
                   <a id="c${i }"
-                    style="cursor: pointer;
-                    text-decoration: none; color:"
+                    style="cursor: pointer; text-decoration: none; color:"
                     onclick="queryPost(${i })">${i }</a>
                   &emsp;
                 </c:if>
@@ -248,7 +258,7 @@
         <c:forEach items="${qrcode1 }" var="qr1">
           <img src="/docs/upload/${qr1.qrImg }" class="img-responsive"
             alt="nbmlnx_service" width="90px" align="bottom">
-          <p style="font-size:11px;margin: 12px;">${qr1.qrName }</p>
+          <p style="font-size: 11px; margin: 12px;">${qr1.qrName }</p>
         </c:forEach>
       </div>
 
@@ -256,7 +266,7 @@
         <c:forEach items="${qrcode2 }" var="qr2">
           <img src="/docs/upload/${qr2.qrImg }" class="img-responsive"
             alt="nbmlnx_service" width="90px" align="bottom">
-          <p style="font-size:11px;margin: 12px;">${qr2.qrName }</p>
+          <p style="font-size: 11px; margin: 12px;">${qr2.qrName }</p>
         </c:forEach>
       </div>
 
@@ -295,7 +305,7 @@
       <div class="col-xs-12">
         <div class="center">
           <c:forEach items="${copyright }" var="cop">
-            <p style="font-size:10px">
+            <p style="font-size: 10px">
               © 2015 Power by <a href="http://www.nbmlnx.com"
                 target="_blank">${cop.cpDetail }</a>
             </p>
