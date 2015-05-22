@@ -66,7 +66,9 @@
           <a href="">注册</a>
         </c:if>
         <c:if test="${sessionScope.uId!=null }">
-        欢迎 <a href="#" class="navbar-link">${sessionScope.uAgname }</a>
+        欢迎 <a href="bbs!showPersonalCenter.action" class="navbar-link"><img
+            src="/docs/upload/${sessionScope.uIcon }">${sessionScope.uAgname
+            }</a>
           <a href="bbs!bbsLogout.action">注销</a>
         </c:if>
 
@@ -120,7 +122,7 @@
                 <li><div
                     class="col-sm-9 bg-white pd15 border-bottom">
                     <a><img style="width:60px"
-                      src="/docs/upload/${pos[1].uicon }" alt="头像" /></a>
+                      src="/docs/upload/${pos[1].uicon1 }" alt="头像" /></a>
                     <p>
                       <a
                         href="bbs!showPostContent.action?poId=${pos[7] }"

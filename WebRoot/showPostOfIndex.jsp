@@ -6,7 +6,7 @@
 <c:forEach items="${posts }" var="pos">
   <div class="bg-white" style="height: 220px; margin-top: 15px;">
     <div class="col-sm-5">
-      <img src="/docs/upload/${pos[1].uicon}" style="height: 220px;">
+      <img src="/docs/upload/${pos[1].uicon1 }" style="height: 220px;">
     </div>
     <div class="col-sm-7">
       <div class="post-title">${pos[0] }</div>

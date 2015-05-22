@@ -1,0 +1,102 @@
+body {
+  font: 14px Tahoma, "Microsoft Yahei", "Simsun";
+  background-color: #eee;
+}
+
+.head-size {
+  height: 70px;
+  padding: 10px;
+}
+
+.bg-white {
+  background-color: #fff;
+}
+
+.pd15 {
+  padding: 15px;
+}
+
+.width-60 {
+  width: 60%;
+}
+
+.width-40 {
+  width: 40%;
+}
+
+.mg-top-35 {
+  margin-top: 35px;
+}
+
+#personal-list>ul>li,.mg-top-15 {
+  margin-top: 15px;
+}
+
+.mg-right-15 {
+  margin-right: 15px;
+}
+
+.user-setting {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  background: url(../images/setting.png) no-repeat;
+  height: 21px;
+  width: 21px;
+  display: block;
+}
+
+#personal-list>ul>li>span,.mg-left-15 {
+  margin-left: 15px;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #F4F4F4;
+}
+
+.footer {
+  margin-top: 20px;
+  padding: 15px;
+}
+
+.center {
+  text-align: center;
+}
+
+@media ( max-width :931px) {
+  .nav {
+    display: none;
+  }
+}
+
+@media ( max-width :783px) {
+  .nav {
+    display: none;
+  }
+  .right {
+    float: right;
+  }
+  .left {
+    float: left;
+  }
+}
+
+@media ( max-width :372px) {
+  .nav {
+    display: none;
+  }
+  .hid {
+    display: none;
+  }
+  .left {
+    float: left;
+  }
+}

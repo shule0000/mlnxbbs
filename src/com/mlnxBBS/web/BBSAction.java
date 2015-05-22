@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.SortedMap;
 
 import javax.servlet.http.Cookie;
@@ -22,10 +23,12 @@ import com.mlnxBBS.service.PraiseService;
 import com.mlnxBBS.service.QrcodeService;
 import com.mlnxBBS.service.ResponseService;
 import com.mlnxBBS.service.UserService;
+import com.mlnxBBS.service.UserinfoService;
 import com.mlnxBBS.tool.MD5;
 import com.mlnxBBS.core.PageBean;
 import com.mlnxBBS.core.Post;
 import com.mlnxBBS.core.User;
+import com.mlnxBBS.core.Userinfo;
 
 public class BBSAction extends BaseAction {
 	HeaderService headerService = new HeaderService();
@@ -40,6 +43,7 @@ public class BBSAction extends BaseAction {
 	EventService eventService = new EventService();
 	ResponseService responseService = new ResponseService();
 	PraiseService praiseService = new PraiseService();
+	UserinfoService userinfoService = new UserinfoService();
 
 	/**
 	 * 显示论坛主页
@@ -305,6 +309,7 @@ public class BBSAction extends BaseAction {
 							}
 						}
 					}
+					session.setAttribute("uIcon", user.getUicon3());
 					session.setAttribute("uId", uId);
 					session.setAttribute("uAgname", user.getUagname());
 				}
@@ -392,7 +397,6 @@ public class BBSAction extends BaseAction {
 			this.forward("bbsLogin.jsp");
 		}
 	}
-
 	/**
 	 * 论坛用户登出
 	 * 
@@ -467,7 +471,9 @@ public class BBSAction extends BaseAction {
 		user.setUemail(uEmail);
 		user.setUagname("用户" + uName.substring(0, 2)
 				+ String.valueOf(System.currentTimeMillis()).substring(7, 13));
-		user.setUicon("defaultIcon.jpg");
+		user.setUicon1("1_defaultIcon.jpg");
+		user.setUicon2("2_defaultIcon.jpg");
+		user.setUicon3("3_defaultIcon.jpg");
 		user.setHistoryDays(0);
 		user.setRunningDays(0);
 		Timestamp ts = new Timestamp(new Date().getTime());
@@ -599,6 +605,7 @@ public class BBSAction extends BaseAction {
 			} else {
 				request.setAttribute("praise", 1);
 			}
+			@SuppressWarnings("rawtypes")
 			SortedMap[] sm2 = praiseService.executeQuery(
 					"select * from collection where coUid = ? and coPoid = ?",
 					new Object[]{session.getAttribute("uId"), poId});
@@ -705,6 +712,9 @@ public class BBSAction extends BaseAction {
 		this.forward("postContent.jsp");
 	}
 
+	/**
+	 * 查询
+	 */
 	public void doSearch() {
 		// 显示当前日期
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd EEEE");// 设置日期格式
@@ -810,5 +820,115 @@ public class BBSAction extends BaseAction {
 		session.setAttribute("replace", "<span style='color: red'><b>"
 				+ session.getAttribute("key") + "</b></span>");
 		this.forward("searchResult.jsp");
+	}
+
+	/**
+	 * 显示个人中心页面
+	 */
+	public void showPersonalCenter() {
+		// 显示logo
+		@SuppressWarnings("rawtypes")
+		SortedMap[] headers = headerService.executeQuery(
+				"select * from header where headerStatus = ?", new Object[]{1});
+		request.setAttribute("headers", headers);
+
+		// 显示论坛导航栏菜单
+		@SuppressWarnings("rawtypes")
+		SortedMap[] BBSNavs = navigationService
+				.executeQuery(
+						"select * from navigation where navStatus = ? and navType = ? order by navPriority desc",
+						new Object[]{1, 2});
+		request.setAttribute("BBSNavs", BBSNavs);
+
+		// 显示二维码
+		// 第一显示位置
+		@SuppressWarnings("rawtypes")
+		SortedMap[] qrcode1 = qrcodeService.executeQuery(
+				"select * from qrcode where qrPosition = ? and qrStatus = ?",
+				new Object[]{1, 1});
+		request.setAttribute("qrcode1", qrcode1);
+
+		// 第二显示位置
+		@SuppressWarnings("rawtypes")
+		SortedMap[] qrcode2 = qrcodeService.executeQuery(
+				"select * from qrcode where qrPosition = ? and qrStatus = ?",
+				new Object[]{2, 1});
+		request.setAttribute("qrcode2", qrcode2);
+
+		// 显示联系信息
+		@SuppressWarnings("rawtypes")
+		SortedMap[] contact = contactService.executeQuery(
+				"select * from contact where ctStatus = ?", new Object[]{1});
+		request.setAttribute("contact", contact);
+
+		// 显示版权信息
+		@SuppressWarnings("rawtypes")
+		SortedMap[] copyright = copyrightService.executeQuery(
+				"select * from copyright where cpStatus = ?", new Object[]{1});
+		request.setAttribute("copyright", copyright);
+
+		User user = userService.findById((int) session.getAttribute("uId"));
+		request.setAttribute("user", user);
+
+		this.forward("bbsPersonalCenter.jsp");
+
+	}
+
+	/**
+	 * 保存基本资料
+	 * 
+	 * @throws IOException
+	 */
+	public String uagname;
+	public String realname;
+	public int privacy_realname;
+	public String gender;
+	public int privacy_gender;
+	public String resideprovince;
+	public int privacy_residecity;
+	public Timestamp birthday;
+	public int privacy_birthday;
+	public String birthprovince;
+	public int privacy_birthcity;
+	public String affectivestatus;
+	public int privacy_affectivestatus;
+	public String lookingfor;
+	public int privacy_lookingfor;
+	public void saveBase() throws IOException {
+		User currUser = userService.findById((int) session.getAttribute("uId"));
+		currUser.setUagname(uagname);
+		userService.updateObject(currUser);
+		Set<Userinfo> curUserinfos = currUser.getUserinfos();
+		if (curUserinfos.size() < 1) {
+			Userinfo newUserinfo = new Userinfo();
+			newUserinfo.setUser(currUser);
+			newUserinfo.setUrealname(privacy_realname + "_" + realname);
+			newUserinfo.setUsex(privacy_gender + "_" + gender);
+			newUserinfo
+					.setUresidence(privacy_residecity + "_" + resideprovince);
+			newUserinfo.setUbirthday(privacy_birthday + "_" + birthday);
+			newUserinfo.setUbirthplace(privacy_birthcity + "_" + birthprovince);
+			newUserinfo.setUremark1(privacy_affectivestatus + "_"
+					+ affectivestatus);
+			newUserinfo.setUremark2(privacy_lookingfor + "_" + lookingfor);
+
+			userinfoService.save(newUserinfo);
+		} else {
+			Userinfo newUserinfo = (Userinfo) curUserinfos.toArray()[0];
+			newUserinfo.setUrealname(privacy_realname + "_" + realname);
+			newUserinfo.setUsex(privacy_gender + "_" + gender);
+			newUserinfo
+					.setUresidence(privacy_residecity + "_" + resideprovince);
+			newUserinfo.setUbirthday(privacy_birthday + "_" + birthday);
+			newUserinfo.setUbirthplace(privacy_birthcity + "_" + birthprovince);
+			newUserinfo.setUremark1(privacy_affectivestatus + "_"
+					+ affectivestatus);
+			newUserinfo.setUremark2(privacy_lookingfor + "_" + lookingfor);
+
+			userinfoService.updateObject(newUserinfo);
+
+		}
+		session.setAttribute("uAgname", uagname);
+		response.sendRedirect("bbs!showPersonalCenter.action");
 	}
 }

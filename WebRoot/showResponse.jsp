@@ -7,7 +7,7 @@
     <c:forEach items="${responses }" var="rsp">
       <li><div class="col-sm-9 bg-white pd15">
           <a href="#" style="float: left;"><img
-            src="/docs/upload/${rsp[1].uicon }" alt="头像"
+            src="/docs/upload/${rsp[1].uicon2 }" alt="头像"
             style="width: 60px" /></a>
           <p>
             <a href="#" style="margin: 0px 15px;">${rsp[1].uagname }</a>
@@ -30,12 +30,12 @@
                 <div>
                   <c:if test="${sessionScope.uId==null }">
                     <img
-                      src="/docs/upload/${cRsp[1].uicon
+                      src="/docs/upload/${cRsp[1].uicon3
                         }"
                       style="width:16px" />
                     <a onclick="goLogin()" style="cursor: pointer;">${cRsp[1].uagname
                       }</a>&emsp;To&emsp;<img
-                      src="/docs/upload/${cRsp[2].uicon
+                      src="/docs/upload/${cRsp[2].uicon3
                         }"
                       style="width:16px" />
                     <a onclick="goLogin()" style="cursor: pointer;">${cRsp[2].uagname
@@ -45,14 +45,14 @@
                   </c:if>
                   <c:if test="${sessionScope.uId!=null }">
                     <img
-                      src="/docs/upload/${cRsp[1].uicon
+                      src="/docs/upload/${cRsp[1].uicon3
                         }"
                       style="width:16px" />
                     <a
                       onclick="showRspToU('${cRsp[1].uagname
                             }', '${rsp[0] }', '${poId }', '${cRsp[1].uid }')"
                       style="cursor: pointer;">${cRsp[1].uagname }</a>&emsp;To&emsp;<img
-                      src="/docs/upload/${cRsp[2].uicon
+                      src="/docs/upload/${cRsp[2].uicon3
                         }"
                       style="width:16px" />
                     <a

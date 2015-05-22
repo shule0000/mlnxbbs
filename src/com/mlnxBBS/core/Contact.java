@@ -7,114 +7,93 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 /**
  * Contact entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name="contact"
-    ,catalog="mlnx"
-)
+@Table(name = "contact", catalog = "mlnx")
+public class Contact implements java.io.Serializable {
 
-public class Contact  implements java.io.Serializable {
+	// Fields
 
+	private Integer ctId;
+	private String ctPhone;
+	private String ctAdress;
+	private String ctEmail;
+	private String ctFax;
+	private Integer ctStatus;
 
-    // Fields    
+	// Constructors
 
-     private Integer ctId;
-     private String ctPhone;
-     private String ctAdress;
-     private String ctEmail;
-     private String ctFax;
-     private Integer ctStatus;
+	/** default constructor */
+	public Contact() {
+	}
 
+	/** full constructor */
+	public Contact(String ctPhone, String ctAdress, String ctEmail,
+			String ctFax, Integer ctStatus) {
+		this.ctPhone = ctPhone;
+		this.ctAdress = ctAdress;
+		this.ctEmail = ctEmail;
+		this.ctFax = ctFax;
+		this.ctStatus = ctStatus;
+	}
 
-    // Constructors
+	// Property accessors
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "ctId", unique = true, nullable = false)
+	public Integer getCtId() {
+		return this.ctId;
+	}
 
-    /** default constructor */
-    public Contact() {
-    }
+	public void setCtId(Integer ctId) {
+		this.ctId = ctId;
+	}
 
-    
-    /** full constructor */
-    public Contact(String ctPhone, String ctAdress, String ctEmail, String ctFax, Integer ctStatus) {
-        this.ctPhone = ctPhone;
-        this.ctAdress = ctAdress;
-        this.ctEmail = ctEmail;
-        this.ctFax = ctFax;
-        this.ctStatus = ctStatus;
-    }
+	@Column(name = "ctPhone", nullable = false, length = 50)
+	public String getCtPhone() {
+		return this.ctPhone;
+	}
 
-   
-    // Property accessors
-    @Id @GeneratedValue(strategy=IDENTITY)
-    
-    @Column(name="ctId", unique=true, nullable=false)
+	public void setCtPhone(String ctPhone) {
+		this.ctPhone = ctPhone;
+	}
 
-    public Integer getCtId() {
-        return this.ctId;
-    }
-    
-    public void setCtId(Integer ctId) {
-        this.ctId = ctId;
-    }
-    
-    @Column(name="ctPhone", nullable=false, length=50)
+	@Column(name = "ctAdress", nullable = false, length = 50)
+	public String getCtAdress() {
+		return this.ctAdress;
+	}
 
-    public String getCtPhone() {
-        return this.ctPhone;
-    }
-    
-    public void setCtPhone(String ctPhone) {
-        this.ctPhone = ctPhone;
-    }
-    
-    @Column(name="ctAdress", nullable=false, length=50)
+	public void setCtAdress(String ctAdress) {
+		this.ctAdress = ctAdress;
+	}
 
-    public String getCtAdress() {
-        return this.ctAdress;
-    }
-    
-    public void setCtAdress(String ctAdress) {
-        this.ctAdress = ctAdress;
-    }
-    
-    @Column(name="ctEmail", nullable=false, length=50)
+	@Column(name = "ctEmail", nullable = false, length = 50)
+	public String getCtEmail() {
+		return this.ctEmail;
+	}
 
-    public String getCtEmail() {
-        return this.ctEmail;
-    }
-    
-    public void setCtEmail(String ctEmail) {
-        this.ctEmail = ctEmail;
-    }
-    
-    @Column(name="ctFax", nullable=false, length=50)
+	public void setCtEmail(String ctEmail) {
+		this.ctEmail = ctEmail;
+	}
 
-    public String getCtFax() {
-        return this.ctFax;
-    }
-    
-    public void setCtFax(String ctFax) {
-        this.ctFax = ctFax;
-    }
-    
-    @Column(name="ctStatus", nullable=false)
+	@Column(name = "ctFax", nullable = false, length = 50)
+	public String getCtFax() {
+		return this.ctFax;
+	}
 
-    public Integer getCtStatus() {
-        return this.ctStatus;
-    }
-    
-    public void setCtStatus(Integer ctStatus) {
-        this.ctStatus = ctStatus;
-    }
-   
+	public void setCtFax(String ctFax) {
+		this.ctFax = ctFax;
+	}
 
+	@Column(name = "ctStatus", nullable = false)
+	public Integer getCtStatus() {
+		return this.ctStatus;
+	}
 
-
-
-
-
-
+	public void setCtStatus(Integer ctStatus) {
+		this.ctStatus = ctStatus;
+	}
 
 }

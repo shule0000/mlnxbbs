@@ -6,7 +6,7 @@
   <c:forEach items="${posts }" var="pos">
     <li><div class="col-sm-9 bg-white pd15 border-bottom">
         <a><img style="width:60px"
-          src="/docs/upload/${pos[1].uicon }" alt="头像" /></a>
+          src="/docs/upload/${pos[1].uicon1 }" alt="头像" /></a>
         <p>
           <a href="bbs!showPostContent.action?poId=${pos[7] }"
             target="_blank">${pos[0] }</a>

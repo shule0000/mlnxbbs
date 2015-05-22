@@ -66,7 +66,9 @@
           <a href="">注册</a>
         </c:if>
         <c:if test="${sessionScope.uId!=null }">
-        欢迎 <a href="#" class="navbar-link">${sessionScope.uAgname }</a>
+        欢迎 <a href="bbs!showPersonalCenter.action" class="navbar-link"><img
+            src="/docs/upload/${sessionScope.uIcon }">${sessionScope.uAgname
+            }</a>
           <a href="bbs!bbsLogout.action">注销</a>
         </c:if>
       </p>
@@ -90,7 +92,7 @@
       <div class="col-sm-9">
         <div class="bg-white">
           <div id="content_title" class="pd20">
-            <a><img src="/docs/upload/${post.user.uicon }" alt="头像"
+            <a><img src="/docs/upload/${post.user.uicon2 }" alt="头像"
               width=80px /></a>
             <p style="margin: 22px;">${post.poTitle }</p>
             <a href="#" style="margin: 0px 15px; width: 50%;">
@@ -201,7 +203,7 @@
               <c:forEach items="${responses }" var="rsp">
                 <li><div class="col-sm-9 bg-white pd15">
                     <a href="#" style="float: left;"><img
-                      src="/docs/upload/${rsp[1].uicon }" alt="头像"
+                      src="/docs/upload/${rsp[1].uicon2 }" alt="头像"
                       style="width: 60px" /></a>
                     <p>
                       <a href="#" style="margin: 0px 15px;">${rsp[1].uagname
@@ -226,13 +228,13 @@
                           <div>
                             <c:if test="${sessionScope.uId==null }">
                               <img
-                                src="/docs/upload/${cRsp[1].uicon
+                                src="/docs/upload/${cRsp[1].uicon3
                         }"
                                 style="width: 16px" />
                               <a onclick="goLogin()"
                                 style="cursor: pointer;">${cRsp[1].uagname
                                 }</a>&emsp;To&emsp;<img
-                                src="/docs/upload/${cRsp[2].uicon
+                                src="/docs/upload/${cRsp[2].uicon3
                         }"
                                 style="width: 16px" />
                               <a onclick="goLogin()"
@@ -243,7 +245,7 @@
                             </c:if>
                             <c:if test="${sessionScope.uId!=null }">
                               <img
-                                src="/docs/upload/${cRsp[1].uicon
+                                src="/docs/upload/${cRsp[1].uicon3
                         }"
                                 style="width: 16px" />
                               <a
@@ -251,7 +253,7 @@
                             }', '${rsp[0] }', '${post.poId }', '${cRsp[1].uid }')"
                                 style="cursor: pointer;">${cRsp[1].uagname
                                 }</a>&emsp;To&emsp;<img
-                                src="/docs/upload/${cRsp[2].uicon
+                                src="/docs/upload/${cRsp[2].uicon3
                         }"
                                 style="width: 16px" />
                               <a

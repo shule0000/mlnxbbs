@@ -21,6 +21,7 @@
     <property name="connection.autocommit">true</property>
     <mapping class="com.mlnxBBS.core.Notice" />
     <mapping class="com.mlnxBBS.core.User" />
+    <mapping class="com.mlnxBBS.core.Userinfo" />
     <mapping class="com.mlnxBBS.core.Praise" />
     <mapping class="com.mlnxBBS.core.Navigation" />
     <mapping class="com.mlnxBBS.core.Event" />
@@ -32,7 +33,7 @@
     <mapping class="com.mlnxBBS.core.Header" />
     <mapping class="com.mlnxBBS.core.Banner" />
     <mapping class="com.mlnxBBS.core.Collection" />
-    <mapping class="com.mlnxBBS.core.Image" />
+    <mapping class="com.mlnxBBS.core.Province" />
   </session-factory>
 
 </hibernate-configuration>

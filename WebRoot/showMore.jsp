@@ -9,12 +9,12 @@
       <div>
         <c:if test="${sessionScope.uId==null }">
           <img
-            src="/docs/upload/${mor[1].uicon
+            src="/docs/upload/${mor[1].uicon3
                         }"
             style="width:16px" />
           <a onclick="goLogin()" style="cursor: pointer;">${mor[1].uagname
             }</a>&emsp;To&emsp;<img
-            src="/docs/upload/${mor[2].uicon
+            src="/docs/upload/${mor[2].uicon3
                         }"
             style="width:16px" />
           <a onclick="goLogin()" style="cursor: pointer;">${mor[2].uagname
@@ -24,14 +24,14 @@
         </c:if>
         <c:if test="${sessionScope.uId!=null }">
           <img
-            src="/docs/upload/${mor[1].uicon
+            src="/docs/upload/${mor[1].uicon3
                         }"
             style="width:16px" />
           <a
             onclick="showRspToU('${mor[1].uagname
                             }', '${position }', '${poId }', '${mor[1].uid }')"
             style="cursor: pointer;">${mor[1].uagname }</a>&emsp;To&emsp;<img
-            src="/docs/upload/${mor[2].uicon
+            src="/docs/upload/${mor[2].uicon3
                         }"
             style="width:16px" />
           <a

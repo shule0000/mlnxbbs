@@ -65,7 +65,9 @@
           <a href="">注册</a>
         </c:if>
         <c:if test="${sessionScope.uId!=null }">
-        欢迎 <a href="#" class="navbar-link">${sessionScope.uAgname }</a>
+        欢迎 <a href="bbs!showPersonalCenter.action" class="navbar-link"><img
+            src="/docs/upload/${sessionScope.uIcon }">${sessionScope.uAgname
+            }</a>
           <a href="bbs!bbsLogout.action">注销</a>
         </c:if>
       </p>
@@ -94,18 +96,29 @@
           <c:if test="${existPost==1 }">
             <c:forEach items="${posts }" var="pos">
               <div class="bg-white"
-                style="height: 200px; margin-top: 15px;">
-                ${pos[0].replaceAll(sessionScope.key,
-                sessionScope.replace) }
-                作者：${pos[1].uagname.replaceAll(sessionScope.key,
-                sessionScope.replace) }
-                （${pos[1].uname.replaceAll(sessionScope.key,
-                sessionScope.replace) }） 发帖时间：
-                <c:set var="time" value="${pos[2] }"></c:set>
-                ${time.replaceAll(sessionScope.key,
-                sessionScope.replace) } 点赞数：${pos[3] } <a
-                  href="bbs!showPostContent.action?poId=${pos[5] }"
-                  target="_blank">${pos[4] }</a>
+                style="height: 220px; margin-top: 15px;">
+                <div class="col-sm-5">
+                  <img src="/docs/upload/${pos[1].uicon1}"
+                    style="height: 220px;">
+                </div>
+                <div class="col-sm-7">
+                  <div class="post-title">${pos[0].replaceAll(sessionScope.key,
+                    sessionScope.replace) }</div>
+                  <div class="post-header">
+                    作者：${pos[1].uagname.replaceAll(sessionScope.key,
+                    sessionScope.replace) }
+                    （${pos[1].uname.replaceAll(sessionScope.key,
+                    sessionScope.replace) }） 发帖时间：
+                    <c:set var="time" value="${pos[2] }"></c:set>
+                    ${time.replaceAll(sessionScope.key,
+                    sessionScope.replace) } 点赞数：${pos[3] }
+                  </div>
+                  <div class="post-body">${pos[4] }</div>
+                  <div class="post-more">
+                    <a href="bbs!showPostContent.action?poId=${pos[5] }"
+                      target="_blank">阅读更多>></a>
+                  </div>
+                </div>
               </div>
             </c:forEach>
             <div align="center" style="margin-top: 15px">

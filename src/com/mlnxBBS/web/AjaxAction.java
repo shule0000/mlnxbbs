@@ -19,12 +19,15 @@ import com.mlnxBBS.core.Collection;
 import com.mlnxBBS.core.PageBean;
 import com.mlnxBBS.core.Post;
 import com.mlnxBBS.core.Praise;
+import com.mlnxBBS.core.Province;
 import com.mlnxBBS.core.Response;
 import com.mlnxBBS.core.User;
+import com.mlnxBBS.core.Userinfo;
 import com.mlnxBBS.service.CollectionService;
 import com.mlnxBBS.service.PageService;
 import com.mlnxBBS.service.PostService;
 import com.mlnxBBS.service.PraiseService;
+import com.mlnxBBS.service.ProvinceService;
 import com.mlnxBBS.service.ResponseService;
 import com.mlnxBBS.service.UserService;
 import com.mlnxBBS.tool.MD5;
@@ -38,6 +41,7 @@ public class AjaxAction extends BaseAction {
 	PostService postService = new PostService();
 	PraiseService praiseService = new PraiseService();
 	CollectionService collectionService = new CollectionService();
+	ProvinceService provinceService = new ProvinceService();
 
 	/**
 	 * 主页分页查找帖子并显示
@@ -128,6 +132,7 @@ public class AjaxAction extends BaseAction {
 							currUser.getRunningDays());
 				}
 
+				session.setAttribute("uIcon", currUser.getUicon3());
 				session.setAttribute("uId", currUser.getUid());
 				session.setAttribute("uAgname", currUser.getUagname());
 				if (remember) {
@@ -430,6 +435,9 @@ public class AjaxAction extends BaseAction {
 		this.forward("showResponse.jsp");
 	}
 
+	/**
+	 * 点击显示更多后显示更多子回复
+	 */
 	public int poId3;
 	public int position3;
 	public int clickNum;
@@ -566,5 +574,40 @@ public class AjaxAction extends BaseAction {
 		session.setAttribute("replace", "<span style='color: red'><b>"
 				+ session.getAttribute("key") + "</b></span>");
 		this.forward("showSearchResult.jsp");
+	}
+
+	/**
+	 * 按操作显示个人中心修改页面
+	 */
+	public String command;
+	public void showModify() throws IOException {
+
+		if (command.equals("all")) {
+			this.forward("bbsPersonalCenterAll.jsp");
+		}
+		if (command.equals("base")) {
+			User user = userService.findById((int) session.getAttribute("uId"));
+			request.setAttribute("user", user);
+
+			boolean info = false;
+			if (user.getUserinfos().size() > 0) {
+				Userinfo userinfo = (Userinfo) user.getUserinfos().toArray()[0];
+				request.setAttribute("userinfo", userinfo);
+				info = true;
+			}
+			@SuppressWarnings("unchecked")
+			List<Province> provinces = provinceService.findAll();
+			request.setAttribute("provinces", provinces);
+
+			request.setAttribute("info", info);
+			this.forward("base.jsp");
+		}
+	}
+
+	/**
+	 * 修改个人头像
+	 */
+	public void showModifyUicon() {
+		this.forward("test.jsp");
 	}
 }
